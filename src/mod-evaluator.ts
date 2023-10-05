@@ -11,7 +11,7 @@ type Sandbox = {
 
 export type SandboxAPIModule = {
   createModule(): ModModule;
-  initializeSandboxAPI(sandbox: Sandbox): void;
+  initializeSandboxAPI(sandbox: Sandbox, mod: Mod): void;
 };
 
 const DEFAULT_API_MODULES = [ConfigAPIModule, LoggingAPIModule];
@@ -32,7 +32,7 @@ export class ModEvaluator {
       ...this.mod.modules,
       ...this.apiModules.reduce((acc, sandboxModule) => {
         const module = sandboxModule.createModule();
-        sandboxModule.initializeSandboxAPI(this.sandbox);
+        sandboxModule.initializeSandboxAPI(this.sandbox, this.mod);
 
         return {
           [module.name]: module,
