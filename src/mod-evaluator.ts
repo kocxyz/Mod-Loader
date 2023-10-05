@@ -3,13 +3,16 @@ import ivm from 'isolated-vm';
 import path from 'path';
 import ConfigAPIModule from './api/config';
 import LoggingAPIModule from './api/logging';
+import PermissionsService from './services/permissions-service';
 
 type ModEvaluatorOptions = {
   modsConfigDir: string;
+  permissionsFilePath: string;
 };
 
 export class ModEvaluator {
   private mod: Mod;
+  private permissionService: PermissionsService;
   private sandbox: Sandbox;
   private apiModules: SandboxAPIModule[];
   private options: ModEvaluatorOptions;
@@ -18,17 +21,21 @@ export class ModEvaluator {
     this.mod = mod;
     this.options = {
       modsConfigDir: 'configs',
+      permissionsFilePath: 'permissions.yaml',
       ...options,
     };
+    this.permissionService = new PermissionsService(mod, { permissionsFilePath: this.options.permissionsFilePath });
     this.apiModules = [ConfigAPIModule({ modsConfigDir: this.options.modsConfigDir }), LoggingAPIModule];
     this.sandbox = this.createSandbox();
   }
 
   async evaulate() {
+    this.permissionService.loadPermissions();
+
     const sandboxAPIModules: { [specifier: string]: ModModule } = {
       ...this.apiModules.reduce((acc, sandboxModule) => {
         const module = sandboxModule.createModule();
-        sandboxModule.initializeSandboxAPI(this.sandbox, this.mod);
+        sandboxModule.initializeSandboxAPI(this.sandbox, this.mod, this.permissionService);
 
         return {
           [module.specifier]: module,
