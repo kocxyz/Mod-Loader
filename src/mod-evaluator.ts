@@ -14,16 +14,23 @@ export type SandboxAPIModule = {
   initializeSandboxAPI(sandbox: Sandbox, mod: Mod): void;
 };
 
-const DEFAULT_API_MODULES = [ConfigAPIModule, LoggingAPIModule];
+type ModEvaluatorOptions = {
+  modsConfigDir: string;
+};
 
 export class ModEvaluator {
   private mod: Mod;
   private sandbox: Sandbox;
   private apiModules: SandboxAPIModule[];
+  private options: ModEvaluatorOptions;
 
-  constructor(mod: Mod, apiModules: SandboxAPIModule[] = DEFAULT_API_MODULES) {
+  constructor(mod: Mod, options?: Partial<ModEvaluatorOptions>, apiModules?: SandboxAPIModule[]) {
     this.mod = mod;
-    this.apiModules = apiModules;
+    this.options = {
+      modsConfigDir: 'configs',
+      ...options,
+    };
+    this.apiModules = apiModules ?? [ConfigAPIModule({ modsConfigDir: this.options.modsConfigDir }), LoggingAPIModule];
     this.sandbox = this.createSandbox();
   }
 

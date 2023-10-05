@@ -1,12 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-type ModLoaderConfiguration = {
-  baseDir: string;
-  mods: {
-    modDir: string;
-    configDir: string;
-  };
+type ModLoaderOptions = {
+  modDir: string;
 };
 
 export type ModModule = {
@@ -24,24 +20,18 @@ export type Mod = {
 };
 
 export class ModLoader {
-  private configuration: ModLoaderConfiguration;
+  private options: ModLoaderOptions;
 
-  constructor(configuration: Partial<ModLoaderConfiguration> = {}) {
-    this.configuration = {
-      baseDir: '.',
-      mods: {
-        modDir: 'mods',
-        configDir: 'configs',
-        ...configuration.mods,
-      },
-      ...configuration,
+  constructor(options: Partial<ModLoaderOptions> = {}) {
+    this.options = {
+      modDir: 'mods',
+      ...options,
     };
   }
 
   loadMods(): Mod[] {
-    const modsPath = path.join(this.configuration.baseDir, this.configuration.mods.modDir);
-    const modPaths = fs.readdirSync(modsPath);
-    return modPaths.map((mod) => this.loadMod(path.join(modsPath, mod)));
+    const modPaths = fs.readdirSync(this.options.modDir);
+    return modPaths.map((mod) => this.loadMod(path.join(this.options.modDir, mod)));
   }
 
   private loadMod(modPath: string): Mod {

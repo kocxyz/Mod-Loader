@@ -1,7 +1,11 @@
 import type { SandboxAPIModule } from '../mod-evaluator';
 import ModConfigurationService from '../services/config-service';
 
-const ConfigAPIModule: SandboxAPIModule = {
+type ConfigAPIModuleOptions = {
+  modsConfigDir: string;
+};
+
+const ConfigAPIModule = (options: ConfigAPIModuleOptions): SandboxAPIModule => ({
   createModule: () => ({
     name: 'config',
     content: `
@@ -19,7 +23,7 @@ export default config;
   }),
 
   initializeSandboxAPI(sandbox, mod) {
-    const configurationService = new ModConfigurationService(mod, { configDir: 'configs' });
+    const configurationService = new ModConfigurationService(mod, { configDir: options.modsConfigDir });
 
     sandbox.global.setSync('__host__api__read_config', <T extends object>(configurationName: string) => {
       return configurationService.getConfiguration<T>(configurationName);
@@ -32,6 +36,6 @@ export default config;
       }
     );
   },
-};
+});
 
 export default ConfigAPIModule;
