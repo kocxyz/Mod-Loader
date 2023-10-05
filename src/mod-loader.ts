@@ -1,22 +1,9 @@
+import type { Mod, ModModule } from '@/types';
 import fs from 'fs';
 import path from 'path';
 
 type ModLoaderOptions = {
   modDir: string;
-};
-
-export type ModModule = {
-  name: string;
-  content: string;
-};
-
-export type Mod = {
-  name: string;
-  description?: string;
-  author?: string;
-
-  entrypoint: ModModule;
-  modules: { [name: string]: ModModule };
 };
 
 export class ModLoader {

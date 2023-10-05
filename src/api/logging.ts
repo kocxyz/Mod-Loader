@@ -1,5 +1,5 @@
 import getLogger from '../logging';
-import type { SandboxAPIModule } from '../mod-evaluator';
+import type { SandboxAPIModule } from '@/types';
 
 const LoggingAPIModule: SandboxAPIModule = {
   createModule: () => ({

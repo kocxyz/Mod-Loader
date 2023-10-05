@@ -1,4 +1,4 @@
-import type { SandboxAPIModule } from '../mod-evaluator';
+import type { SandboxAPIModule } from '@/types';
 import ModConfigurationService from '../services/config-service';
 
 type ConfigAPIModuleOptions = {

@@ -1,4 +1,4 @@
-import type { Mod } from '../mod-loader';
+import type { Mod } from '@/types';
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';

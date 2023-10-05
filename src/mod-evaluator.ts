@@ -1,18 +1,7 @@
-import type { Mod, ModModule } from './mod-loader';
+import type { Sandbox, SandboxAPIModule, Mod, ModModule } from '@/types';
 import ivm from 'isolated-vm';
 import ConfigAPIModule from './api/config';
 import LoggingAPIModule from './api/logging';
-
-type Sandbox = {
-  isolate: ivm.Isolate;
-  context: ivm.Context;
-  global: ivm.Reference<Record<string | number | symbol, any>>;
-};
-
-export type SandboxAPIModule = {
-  createModule(): ModModule;
-  initializeSandboxAPI(sandbox: Sandbox, mod: Mod): void;
-};
 
 type ModEvaluatorOptions = {
   modsConfigDir: string;
