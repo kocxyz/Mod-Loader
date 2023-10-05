@@ -24,13 +24,13 @@ export class ModEvaluator {
   private apiModules: SandboxAPIModule[];
   private options: ModEvaluatorOptions;
 
-  constructor(mod: Mod, options?: Partial<ModEvaluatorOptions>, apiModules?: SandboxAPIModule[]) {
+  constructor(mod: Mod, options?: Partial<ModEvaluatorOptions>) {
     this.mod = mod;
     this.options = {
       modsConfigDir: 'configs',
       ...options,
     };
-    this.apiModules = apiModules ?? [ConfigAPIModule({ modsConfigDir: this.options.modsConfigDir }), LoggingAPIModule];
+    this.apiModules = [ConfigAPIModule({ modsConfigDir: this.options.modsConfigDir }), LoggingAPIModule];
     this.sandbox = this.createSandbox();
   }
 
