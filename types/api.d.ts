@@ -1,12 +1,7 @@
 declare module 'config' {
-  class Configuration {
-    getProperty<T>(property: string, fallback: T): T;
-    hasProperty(property: string): boolean;
-  }
-
   namespace config {
-    function createDefault(name: string, content: Object): boolean;
-    function read(name: string): Configuration;
+    function createDefault<T extends object>(name: string, content: T): boolean;
+    function read<T extends object>(name: string): T | undefined;
   }
 
   export default config;

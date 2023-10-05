@@ -1,9 +1,5 @@
 import type { SandboxAPIModule } from '../mod-evaluator';
-import ivm from 'isolated-vm';
-
-function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import ModConfigurationService from '../services/config-service';
 
 const ConfigAPIModule: SandboxAPIModule = {
   createModule: () => ({
@@ -11,12 +7,10 @@ const ConfigAPIModule: SandboxAPIModule = {
     content: `
 const config = {
   read: (name) => {
-    const result = __host__api__read_config.applySyncPromise(undefined, [name], {});
-    return result.copy();
+    return __host__api__read_config(name);
   },
   createDefault: (name, content) => {
-    const result = __host__api__create_default.applySyncPromise(undefined, [name, content], {});
-    return result.copy(); 
+    return __host__api__create_default(name, content);
   }
 };
 
@@ -24,21 +18,18 @@ export default config;
     `,
   }),
 
-  initializeSandboxAPI(sandbox) {
-    sandbox.global.setSync(
-      '__host__api__read_config',
-      new ivm.Reference(async function (...args: any) {
-        await delay(1000);
-        return new ivm.ExternalCopy(args);
-      })
-    );
+  initializeSandboxAPI(sandbox, mod) {
+    const configurationService = new ModConfigurationService(mod, { configDir: 'configs' });
+
+    sandbox.global.setSync('__host__api__read_config', <T extends object>(configurationName: string) => {
+      return configurationService.getConfiguration<T>(configurationName);
+    });
 
     sandbox.global.setSync(
       '__host__api__create_default',
-      new ivm.Reference(async function (...args: any) {
-        await delay(1000);
-        return new ivm.ExternalCopy(args);
-      })
+      <T extends object>(configurationName: string, content: T): boolean => {
+        return configurationService.createConfiguration(configurationName, content);
+      }
     );
   },
 };
