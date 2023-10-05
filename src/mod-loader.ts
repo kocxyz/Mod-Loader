@@ -6,9 +6,8 @@ import yaml from 'js-yaml';
 
 type ModLoaderOptions = {
   modDir: string;
+  manifestPath: string;
 };
-
-const manifestPath = 'manifest.yaml';
 
 export class ModLoader {
   private options: ModLoaderOptions;
@@ -16,6 +15,7 @@ export class ModLoader {
   constructor(options: Partial<ModLoaderOptions> = {}) {
     this.options = {
       modDir: 'mods',
+      manifestPath: 'manifest.yaml',
       ...options,
     };
   }
@@ -26,15 +26,15 @@ export class ModLoader {
   }
 
   private loadModManifest(modPath: string): ModManifest {
-    const modManifestPath = path.join(modPath, manifestPath);
+    const modManifestPath = path.join(modPath, this.options.manifestPath);
     const modManifestStat = fs.statSync(modManifestPath, { throwIfNoEntry: false });
 
     if (!modManifestStat) {
-      throw Error(`Could not find '${manifestPath}' for mod in path '${modPath}'`);
+      throw Error(`Could not find '${this.options.manifestPath}' for mod in path '${modPath}'`);
     }
 
     if (!modManifestStat.isFile()) {
-      throw Error(`'${manifestPath}' in '${modPath}' is not a file.`);
+      throw Error(`'${this.options.manifestPath}' in '${modPath}' is not a file.`);
     }
 
     const manifestContent = yaml.load(fs.readFileSync(modManifestPath, 'utf-8'));
@@ -42,7 +42,7 @@ export class ModLoader {
 
     if (!parseResult.success) {
       throw Error(
-        `'${manifestPath}' in '${modPath}' is not valid. The following parsing issues occured: ${generateErrorMessage(
+        `'${this.options.manifestPath}' in '${modPath}' is not valid. The following parsing issues occured: ${generateErrorMessage(
           parseResult.error.errors
         )}`
       );
