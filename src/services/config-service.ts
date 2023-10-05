@@ -50,7 +50,7 @@ class ModConfigurationService {
   }
 
   private getModConfigurationFolderPath() {
-    return path.join(this.options.configDir, this.mod.name);
+    return path.join(this.options.configDir, this.mod.manifest.name);
   }
 
   private getConfigurationPath(configurationName: string): string {

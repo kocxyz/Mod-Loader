@@ -25,7 +25,7 @@ export default logging;
   }),
 
   initializeSandboxAPI(sandbox, mod) {
-    const logger = getLogger(mod.name);
+    const logger = getLogger(mod.manifest.name);
 
     sandbox.global.setSync('__host__api__log_debug', (message: string) => logger.debug(message));
     sandbox.global.setSync('__host__api__log_info', (message: string) => logger.info(message));
