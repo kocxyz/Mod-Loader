@@ -1,5 +1,6 @@
 import type { Sandbox, SandboxAPIModule, Mod, ModModule } from '@/types';
 import ivm from 'isolated-vm';
+import path from 'path';
 import ConfigAPIModule from './api/config';
 import LoggingAPIModule from './api/logging';
 
@@ -24,25 +25,40 @@ export class ModEvaluator {
   }
 
   async evaulate() {
-    const sandboxModules: { [name: string]: ModModule } = {
-      ...this.mod.modules,
+    const sandboxAPIModules: { [specifier: string]: ModModule } = {
       ...this.apiModules.reduce((acc, sandboxModule) => {
         const module = sandboxModule.createModule();
         sandboxModule.initializeSandboxAPI(this.sandbox, this.mod);
 
         return {
-          [module.name]: module,
+          [module.specifier]: module,
           ...acc,
         };
       }, {}),
     };
 
     const modEntrypointModule = this.sandbox.isolate.compileModuleSync(this.mod.entrypoint.content);
-    modEntrypointModule.instantiateSync(this.sandbox.context, (specifier) =>
-      this.sandbox.isolate.compileModuleSync(sandboxModules[specifier].content)
-    );
-
+    this.instantiateModule('.', modEntrypointModule, sandboxAPIModules);
     return modEntrypointModule.evaluate({ promise: true });
+  }
+
+  private instantiateModule(
+    modulePath: string,
+    module: ivm.Module,
+    sandboxAPIModules: { [specifier: string]: ModModule }
+  ): void {
+    module.instantiateSync(this.sandbox.context, (specifier) => {
+      const resolvedModulePath = path.join(path.dirname(modulePath), specifier);
+      const module = sandboxAPIModules[specifier] ?? this.mod.modules[resolvedModulePath];
+
+      if (!module) {
+        throw Error(`Could not resolve module '${specifier}'. Absolut path: '${resolvedModulePath}'`);
+      }
+
+      const innerModule = this.sandbox.isolate.compileModuleSync(module.content);
+      this.instantiateModule(resolvedModulePath, innerModule, sandboxAPIModules);
+      return innerModule;
+    });
   }
 
   private createSandbox(): Sandbox {

@@ -3,13 +3,14 @@ import { ZodSemver } from 'zod-semver';
 
 export type ModModule = {
   name: string;
+  specifier: string;
   content: string;
 };
 
 export type Mod = {
   manifest: ModManifest;
   entrypoint: ModModule;
-  modules: { [name: string]: ModModule };
+  modules: { [specifier: string]: ModModule };
 };
 
 export type ModManifest = z.infer<typeof ModManifestSchema>;

@@ -8,6 +8,7 @@ type ConfigAPIModuleOptions = {
 const ConfigAPIModule = (options: ConfigAPIModuleOptions): SandboxAPIModule => ({
   createModule: () => ({
     name: 'config',
+    specifier: 'config',
     content: `
 const config = {
   read: (name) => {

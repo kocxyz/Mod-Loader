@@ -3,10 +3,12 @@ import { generateErrorMessage } from 'zod-error';
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
+import { globSync } from 'glob';
 
 type ModLoaderOptions = {
   modDir: string;
   manifestPath: string;
+  modExtension: string;
 };
 
 export class ModLoader {
@@ -16,6 +18,7 @@ export class ModLoader {
     this.options = {
       modDir: 'mods',
       manifestPath: 'manifest.yaml',
+      modExtension: 'js',
       ...options,
     };
   }
@@ -42,7 +45,9 @@ export class ModLoader {
 
     if (!parseResult.success) {
       throw Error(
-        `'${this.options.manifestPath}' in '${modPath}' is not valid. The following parsing issues occured: ${generateErrorMessage(
+        `'${
+          this.options.manifestPath
+        }' in '${modPath}' is not valid. The following parsing issues occured: ${generateErrorMessage(
           parseResult.error.errors
         )}`
       );
@@ -53,18 +58,34 @@ export class ModLoader {
 
   private loadMod(modPath: string): Mod {
     const manifest = this.loadModManifest(modPath);
-    const entrypointModule = this.loadModModule(path.join(modPath, manifest.entrypoint));
+    const entrypointModule = this.loadModModule(modPath, manifest.entrypoint);
+
     return {
       manifest: manifest,
       entrypoint: entrypointModule,
-      modules: {},
+      modules: {
+        [manifest.entrypoint]: entrypointModule,
+        ...this.loadModModules(modPath).reduce((acc, module) => {
+          return {
+            [module.specifier]: module,
+            ...acc,
+          };
+        }, {}),
+      },
     };
   }
 
-  private loadModModule(modModulePath: string): ModModule {
+  private loadModModules(modPath: string): ModModule[] {
+    const modulePaths = globSync(`${modPath}/**/*.${this.options.modExtension}`);
+    return modulePaths.map((modulePath) => this.loadModModule(modPath, path.relative(modPath, modulePath)));
+  }
+
+  private loadModModule(modPath: string, modulePath: string): ModModule {
+    const modModulePath = path.join(modPath, modulePath);
     const content = fs.readFileSync(modModulePath, 'utf8');
     return {
-      name: modModulePath,
+      name: path.basename(modModulePath),
+      specifier: modulePath,
       content,
     };
   }

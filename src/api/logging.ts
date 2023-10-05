@@ -4,6 +4,7 @@ import type { SandboxAPIModule } from '@/types';
 const LoggingAPIModule: SandboxAPIModule = {
   createModule: () => ({
     name: 'logging',
+    specifier: 'logging',
     content: `
 const logging = {
   debug: (message) => {
