@@ -1,5 +1,5 @@
 import type { Mod, ModModule } from '@/types/mod';
-import type PermissionsService from '@/services/permissions-service';
+import type { PermissionsService } from '@/services';
 import type ivm from 'isolated-vm';
 
 export type Sandbox = {
