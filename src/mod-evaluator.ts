@@ -26,7 +26,7 @@ export class ModEvaluator {
     this.permissionService = new PermissionsService(mod, { permissionsFilePath: this.options.permissionsFilePath });
     this.apiModules = [
       ConfigAPIModule({ modsConfigDir: this.options.modsConfigDir }),
-      LoggingAPIModule,
+      LoggingAPIModule(),
       JsonAPIModule(),
       PermissionsAPIModule(),
     ];
