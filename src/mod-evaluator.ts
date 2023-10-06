@@ -1,7 +1,7 @@
 import type { Sandbox, SandboxAPIModule, Mod, ModModule } from '@/types';
 import ivm from 'isolated-vm';
 import path from 'path';
-import { ConfigAPIModule, LoggingAPIModule } from '@/api';
+import { ConfigAPIModule, LoggingAPIModule, JsonAPIModule } from '@/api';
 import { PermissionsService } from '@/services';
 
 type ModEvaluatorOptions = {
@@ -24,7 +24,11 @@ export class ModEvaluator {
       ...options,
     };
     this.permissionService = new PermissionsService(mod, { permissionsFilePath: this.options.permissionsFilePath });
-    this.apiModules = [ConfigAPIModule({ modsConfigDir: this.options.modsConfigDir }), LoggingAPIModule];
+    this.apiModules = [
+      ConfigAPIModule({ modsConfigDir: this.options.modsConfigDir }),
+      LoggingAPIModule,
+      JsonAPIModule(),
+    ];
     this.sandbox = this.createSandbox();
   }
 
