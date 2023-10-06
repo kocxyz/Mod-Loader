@@ -11,7 +11,7 @@ type PermissionsServiceOptions = {
   permissionsFilePath: string;
 };
 
-class PermissionsService {
+export class PermissionsService {
   private mod: Mod;
   private options: PermissionsServiceOptions;
   private permissions: ModPermissions | undefined;
@@ -59,5 +59,3 @@ class PermissionsService {
     return lodash.get(this.permissions, permission) === true;
   }
 }
-
-export default PermissionsService;

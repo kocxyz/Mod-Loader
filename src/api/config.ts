@@ -1,11 +1,11 @@
 import type { SandboxAPIModule } from '@/types';
-import ModConfigurationService from '../services/config-service';
+import { ModConfigurationService } from '@/services';
 
 type ConfigAPIModuleOptions = {
   modsConfigDir: string;
 };
 
-const ConfigAPIModule = (options: ConfigAPIModuleOptions): SandboxAPIModule => ({
+export const ConfigAPIModule = (options: ConfigAPIModuleOptions): SandboxAPIModule => ({
   createModule: () => ({
     name: 'config',
     specifier: 'config',
@@ -38,5 +38,3 @@ export default config;
     );
   },
 });
-
-export default ConfigAPIModule;

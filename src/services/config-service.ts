@@ -7,7 +7,7 @@ type ModConfigurationServiceOptions = {
   configDir: string;
 };
 
-class ModConfigurationService {
+export class ModConfigurationService {
   private mod: Mod;
   private options: ModConfigurationServiceOptions;
 
@@ -57,5 +57,3 @@ class ModConfigurationService {
     return path.join(this.getModConfigurationFolderPath(), `${this.sanitizeConfigurationName(configurationName)}.yaml`);
   }
 }
-
-export default ModConfigurationService;

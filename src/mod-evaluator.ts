@@ -1,9 +1,8 @@
 import type { Sandbox, SandboxAPIModule, Mod, ModModule } from '@/types';
 import ivm from 'isolated-vm';
 import path from 'path';
-import ConfigAPIModule from './api/config';
-import LoggingAPIModule from './api/logging';
-import PermissionsService from './services/permissions-service';
+import { ConfigAPIModule, LoggingAPIModule } from '@/api';
+import { PermissionsService } from '@/services';
 
 type ModEvaluatorOptions = {
   modsConfigDir: string;

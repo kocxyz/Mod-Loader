@@ -1,7 +1,7 @@
-import getLogger from '../logging';
 import type { SandboxAPIModule } from '@/types';
+import getLogger from '@/logging';
 
-const LoggingAPIModule: SandboxAPIModule = {
+export const LoggingAPIModule: SandboxAPIModule = {
   createModule: () => ({
     name: 'logging',
     specifier: 'logging',
@@ -34,5 +34,3 @@ export default logging;
     sandbox.global.setSync('__host__api__log_error', (message: string) => logger.error(message));
   },
 };
-
-export default LoggingAPIModule;

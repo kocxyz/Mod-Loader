@@ -1,9 +1,9 @@
 import { ModManifestSchema, type Mod, type ModManifest, type ModModule } from '@/types';
 import { generateErrorMessage } from 'zod-error';
+import { globSync } from 'glob';
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
-import { globSync } from 'glob';
 
 type ModLoaderOptions = {
   modDir: string;
