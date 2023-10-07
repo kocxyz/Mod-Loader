@@ -1,3 +1,12 @@
+declare module 'json' {
+  namespace json {
+    function stringify(value: any): string;
+    function parse(value: string): any;
+  }
+
+  export default json;
+}
+
 declare module 'config' {
   namespace config {
     function createDefault<T extends object>(name: string, content: T): boolean;
