@@ -1,0 +1,8 @@
+name: logging
+description: Example mod for logging
+author: Tandashi
+
+version: 1.0.0
+
+compatible_versions:
+  - 269701
