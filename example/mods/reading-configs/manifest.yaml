@@ -1,0 +1,8 @@
+name: reading-configs
+description: Example mod for reading configurations
+author: Tandashi
+
+version: 1.0.0
+
+compatible_versions:
+  - 269701

@@ -5,7 +5,10 @@ const main = async () => {
   const mods = loader.loadMods();
 
   for (const mod of mods) {
-    const evaluator = new ModEvaluator(mod, { permissionsFilePath: 'generated/permissions.yaml' });
+    const evaluator = new ModEvaluator(mod, {
+      modsConfigDir: 'generated/configs',
+      permissionsFilePath: 'generated/permissions.yaml',
+    });
     await evaluator.evaulate();
   }
 
