@@ -9,6 +9,7 @@ import {
   DatabaseAPIModule,
 } from '@/sandbox/api-modules';
 import { PermissionsService } from '@/sandbox/services';
+import { AccessoriesAPIModule } from './api-modules/accessories';
 
 type ModEvaluatorOptions = {
   modsConfigDir: string;
@@ -36,6 +37,7 @@ export class ModEvaluator {
       JsonAPIModule(),
       PermissionsAPIModule(),
       DatabaseAPIModule(),
+      AccessoriesAPIModule(),
     ];
     this.sandbox = this.createSandbox();
   }

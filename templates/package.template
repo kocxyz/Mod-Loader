@@ -1,0 +1,27 @@
+{
+	"segments": [
+		{
+			"exported_objects": [
+				{
+					"$guid": "{{ guid }}",
+					"$name": "/data/catch/ui/cust",
+					"path": "{{ viperFSPath }}",
+					"vtable": "00000001-00000000-2d93ebc3-a16cc4c8"
+				}
+			],
+			"name": "default",
+			"size": 318,
+			"alignment": 8
+		}
+	],
+	"vtable": "00000000-00000000-62b93ebb-b5ebc0e9",
+	"version": "vjson-1",
+	"imports": [
+		"00000001-00000000-3a66bdd8-feb9c77e",
+		"00000001-00000000-2d93ebc3-a16cc4c8"
+	],
+	"exports": [
+		"00000001-00000000-8e0e6b99-c212ac75",
+		"{{ guid }}"
+	]
+}

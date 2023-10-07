@@ -61,6 +61,7 @@ export class ModLoader {
     const entrypointModule = this.loadModModule(modPath, manifest.entrypoint);
 
     return {
+      path: modPath,
       manifest: manifest,
       entrypoint: entrypointModule,
       modules: {

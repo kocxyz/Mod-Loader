@@ -1,0 +1,76 @@
+{
+  "segments": [
+    {
+      "exported_objects": [
+        {
+          "platform_restriction": "k_platform_family_invalid",
+          "$guid": "{{ guid }}",
+          "vtable": "00000001-00000000-bc63e619-7b2d4c21",
+          "path": "{{ viperFSPath }}",
+          "name": {
+            "external_string_id": "MOD_{{ guid }}",
+            "vtable": "00000001-00000000-94d13384-aa9ae660",
+            "text": [
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}",
+              "{{ name }}"
+            ],
+            "version": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "import_hash": 0
+          },
+          "rarity": "{{ rarity }}",
+          "small_icon_package": "{{ iconPackageGuid }}",
+          "accessory_type": "{{ type }}",
+          "in_initial_inventory": {{ inInitialInventory }}
+        }
+      ],
+      "name": "default",
+      "size": 0,
+      "alignment": 8
+    }
+  ],
+  "vtable": "00000000-00000000-62b93ebb-b5ebc0e9",
+  "version": "vjson-1",
+  "imports": [
+    "00000001-00000000-bc63e619-7b2d4c21",
+    "00000001-00000000-94d13384-aa9ae660",
+    "{{ iconPackageGuid }}"
+  ],
+  "exports": [
+    "{{ guid }}"
+  ]
+}

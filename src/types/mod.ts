@@ -8,6 +8,7 @@ export type ModModule = {
 };
 
 export type Mod = {
+  path: string;
   manifest: ModManifest;
   entrypoint: ModModule;
   modules: { [specifier: string]: ModModule };

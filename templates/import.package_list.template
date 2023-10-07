@@ -1,0 +1,41 @@
+{
+	"segments": [
+		{
+			"exported_objects": [
+				{
+					"masks": [
+						0,
+						0
+					],
+					"$guid": "{{ guid }}",
+					"$name": "/out/data/catch/ui/",
+					"vtable": "00000001-00000000-e1ecfcaa-bb6440ca",
+					"path": "{{ viperFSPath }}",
+					"list": [
+						"/data/game/types.c.import"{{#viperFSPaths}},
+						"{{this}}"
+						{{/viperFSPaths}}
+					],
+					"guids": [
+						"00000001-00000000-1adc2989-83b0d5b3"{{#guids}},
+						"{{this}}"
+						{{/guids}}
+					]
+				}
+			],
+			"name": "default",
+			"size": 623,
+			"alignment": 8
+		}
+	],
+	"vtable": "00000000-00000000-62b93ebb-b5ebc0e9",
+	"version": "vjson-1",
+	"imports": [
+		"00000001-00000000-3a66bdd8-feb9c77e",
+		"00000001-00000000-e1ecfcaa-bb6440ca"
+	],
+	"exports": [
+		"00000001-00000000-fb42e6d9-4af1bc08",
+		"{{ guid }}"
+	]
+}
