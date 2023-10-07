@@ -26,6 +26,7 @@ export class OutGenerator {
   }
 
   async generate() {
+    fs.mkdirSync(this.options.baseDir, { recursive: true });
     const outDirPath = this.cleanOutDir();
     this.createViperRootFile();
 
