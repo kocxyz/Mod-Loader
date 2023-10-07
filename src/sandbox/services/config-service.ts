@@ -46,7 +46,7 @@ export class ModConfigurationService {
   }
 
   private sanitizeConfigurationName(configurationName: string): string {
-    return path.basename(configurationName.replace(' ', '_').toLocaleLowerCase());
+    return path.basename(configurationName.replaceAll(' ', '_').toLocaleLowerCase());
   }
 
   private getModConfigurationFolderPath() {
