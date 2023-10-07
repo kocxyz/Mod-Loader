@@ -7,6 +7,14 @@ declare module 'json' {
   export default json;
 }
 
+declare module 'permissions' {
+  namespace permissions {
+    function hasPermission(value: string): boolean;
+  }
+
+  export default permissions;
+}
+
 declare module 'config' {
   namespace config {
     function createDefault<T extends object>(name: string, content: T): boolean;
