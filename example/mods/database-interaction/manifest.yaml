@@ -1,0 +1,8 @@
+name: database
+description: Example mod for database interaction
+author: Tandashi
+
+version: 1.0.0
+
+compatible_versions:
+  - 269701
