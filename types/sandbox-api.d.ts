@@ -1,3 +1,17 @@
+declare module 'accessories' {
+  namespace accessories {
+    function addPlayerIcon(
+      guid: string,
+      name: string,
+      rarity: string,
+      icon: { path: string; extension: string },
+      inInitialInventory?: boolean
+    ): string;
+  }
+
+  export default accessories;
+}
+
 declare module 'json' {
   namespace json {
     function stringify(value: any): string;
