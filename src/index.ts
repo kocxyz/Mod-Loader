@@ -1,2 +1,2 @@
 export * from './mod-loader';
-export * from './mod-evaluator';
+export * from './sandbox/mod-evaluator';

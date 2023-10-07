@@ -1,5 +1,5 @@
 import type { ModDatabaseTablePermission, ModPermission } from '@/types';
-import { PermissionsService } from '@/services';
+import { PermissionsService } from '@/sandbox/services';
 import { prisma } from '@/prisma';
 import { PrismaModelName, PrismaOperation } from '@/types/database';
 

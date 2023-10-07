@@ -1,7 +1,7 @@
 import type { SandboxAPIModule } from '@/types';
 import ivm from 'isolated-vm';
 import { Prisma } from '@prisma/client';
-import { DatabaseService } from '@/services/database-service';
+import { DatabaseService } from '@/sandbox/services/database-service';
 import { PrismaModelName, PrismaOperation } from '@/types/database';
 
 const PRISMA_OPERATIONS: PrismaOperation[] = [

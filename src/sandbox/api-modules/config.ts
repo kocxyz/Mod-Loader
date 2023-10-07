@@ -1,5 +1,5 @@
 import type { SandboxAPIModule } from '@/types';
-import { ModConfigurationService } from '@/services';
+import { ModConfigurationService } from '@/sandbox/services';
 
 type ConfigAPIModuleOptions = {
   modsConfigDir: string;
