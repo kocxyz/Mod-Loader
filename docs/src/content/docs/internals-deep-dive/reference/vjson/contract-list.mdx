@@ -1,0 +1,43 @@
+---
+title: Contract List
+---
+
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+import WorkInProgressAside from '@/content/asides/Work-In-Progress-Aside.md';
+import VJsonHintAside from '@/content/asides/VJson-Hint-Aside.md';
+
+<InternalsWarningAside />
+<WorkInProgressAside />
+
+## Structure
+
+<VJsonHintAside />
+
+```typescript
+type ContractList = {
+  /**
+   * The GUID of the Object.
+   */
+  $guid: GUID;
+  /**
+   * The name of the Object.
+   */
+  $name?: string;
+  /**
+   * The VTable reference.
+   */
+  vtable: GUID;
+  /**
+   * The path to the file this Object is located in.
+   *
+   * Example: /data/catch/contracts/season_05/seasonal/s05_cd.contract_list
+   */
+  path: `${string}.contract_list`;
+  /**
+   * List of contracts references contained in this Contract List.
+   *
+   * See: Contract
+   */
+  contracts: GUID[];
+};
+```

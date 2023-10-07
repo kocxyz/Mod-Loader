@@ -1,0 +1,50 @@
+---
+title: Text
+---
+
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+import WorkInProgressAside from '@/content/asides/Work-In-Progress-Aside.md';
+
+<InternalsWarningAside />
+<WorkInProgressAside />
+
+The Text Component is used for display text on screen.
+
+## Structure
+
+```typescript
+type TextComponent = {
+  /**
+   * The VTable Reference
+   */
+  vtable: GUID;
+  /**
+   * The unique GUID for the component
+   */
+  $guid: GUID;
+  /**
+   * The name of the component
+   */
+  component_name?: string;
+  /**
+   * If all letters should be forced to be uppercase
+   */
+  force_uppercase: boolean;
+  /**
+   * The font size
+   */
+  initial_font_size: number;
+  /**
+   * Reference to the Font via GUID
+   */
+  initial_font: GUID;
+  /**
+   * ???
+   */
+  box_fit: 'k_box_fit_scale';
+  /**
+   * Localization String options
+   */
+  initial_loc_string: LocalizedText;
+};
+```

@@ -1,0 +1,52 @@
+---
+title: Package List
+---
+
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+import WorkInProgressAside from '@/content/asides/Work-In-Progress-Aside.md';
+import VJsonHintAside from '@/content/asides/VJson-Hint-Aside.md';
+
+<InternalsWarningAside />
+<WorkInProgressAside />
+
+## Structure
+
+<VJsonHintAside />
+
+```typescript
+type PackageList = {
+  /**
+   * The GUID of the Object.
+   */
+  $guid: GUID;
+  /**
+   * The name of the Object.
+   */
+  $name?: string;
+  /**
+   * The VTable reference.
+   */
+  vtable: GUID;
+  /**
+   * The path to the file this Object is located in.
+   *
+   * Example: /out/data/catch/consumables/energy_drink/content/energy_drink_001.accessory_content.package_list
+   */
+  path: `${string}.package_list`;
+  /**
+   * ???
+   */
+  masks: number[];
+  /**
+   * List of paths to included vjson files.
+   *
+   * Example: [
+   *    '/data/.../something.import',
+   *    '/data/.../other.model'
+   *    ...
+   * ]
+   */
+  list: string[];
+  guids?: GUID[];
+};
+```

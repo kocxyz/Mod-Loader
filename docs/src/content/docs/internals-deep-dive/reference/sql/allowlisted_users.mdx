@@ -1,0 +1,23 @@
+---
+title: Allowlisted Users
+---
+
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+
+<InternalsWarningAside />
+
+## Details
+
+**Table**: `allowlisted_users`  
+**Description**: This table contains information about whitelisting users for maintanance periods as well as A/B Testing.
+
+## Fields
+
+- `user_id` - The Id of the user
+- `created_at` - The creation date of the table entry
+- `note` - Note about the user
+- `always_allow_login` - Allow the user to login during maintanance periods
+- `velan_value_transfer` - ???
+- `force_cohort_a` - Force the user into testing group A
+- `force_cohort_b` - Force the user into testing group B
+- `content_update` - ???

@@ -1,0 +1,168 @@
+---
+title: Create Custom Item
+sidebar:
+  order: 0
+---
+
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+import WorkInProgressAside from '@/content/asides/Work-In-Progress-Aside.md';
+
+import FileTree from '@/components/FileTree.astro';
+import Link from '@/components/Link.astro';
+
+<InternalsWarningAside />
+<WorkInProgressAside />
+
+In this section we take a look at the process of creating a custom item using the <Link href='internals-deep-dive/reference/vjson/overview'>`VJson`</Link> Format.
+
+## Structure
+
+A quick overview of the files that needs to be created / overwritten:
+
+<FileTree>
+
+- out/data/catch/
+  - characters/customization/accessories/player_icon/
+    - <Link href='internals-deep-dive/reference/vjson/accessory'>player_icon_custom.accessory</Link>
+  - commerce/
+    - <Link href='internals-deep-dive/reference/vjson/package-list'>catch.economy.package_list</Link>
+  - levels/
+    - <Link href='internals-deep-dive/reference/vjson/level'>catalog_manager.level</Link>
+    - <Link href='internals-deep-dive/reference/vjson/package-list'>catalog_manager.level.package_list</Link>
+- .viper_root
+
+</FileTree>
+
+### **`player_icon_custom.accessory`**
+
+```json
+{
+  "segments": [
+    {
+      "exported_objects": [
+        {
+          "platform_restriction": "k_platform_family_invalid",
+          "$guid": "abcdef01-3784c316-5ae06af5-01d6ca75",
+          "$name": "/data/catch/charact",
+          "vtable": "00000001-00000000-bc63e619-7b2d4c21",
+          "path": "/data/catch/characters/customization/accessories/player_icon/player_icon_custom.accessory",
+          "name": {
+            "external_string_id": "HAHAHA",
+            "vtable": "00000001-00000000-94d13384-aa9ae660",
+            "text": ["Custom Player Icon", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            "version": [
+              3363294829, 0, 3363294829, 3363294829, 3363294829, 3363294829, 3363294829, 0, 3363294829, 3363294829,
+              3363294829, 3363294829, 3363294829, 3363294829, 0, 0, 0, 3363294829
+            ],
+            "import_hash": 657687107
+          },
+          "rarity": "k_rarity_legendary",
+          "icon_package": "680d1b1c-3d408595-c208d591-01d7175f",
+          "small_icon_package": "52bf3118-e98c61e9-14b5dc15-01d7aefb",
+          "accessory_type": "k_accessory_type_player_icon",
+          "in_initial_inventory": false
+        }
+      ],
+      "name": "default",
+      "size": 1712,
+      "alignment": 8
+    }
+  ],
+  "vtable": "00000000-00000000-62b93ebb-b5ebc0e9",
+  "version": "vjson-1",
+  "imports": [
+    "00000001-00000000-bc63e619-7b2d4c21",
+    "00000001-00000000-94d13384-aa9ae660",
+    "680d1b1c-3d408595-c208d591-01d7175f",
+    "52bf3118-e98c61e9-14b5dc15-01d7aefb"
+  ],
+  "exports": ["abcdef01-3784c316-5ae06af5-01d6ca75"]
+}
+```
+
+### `catch.economy.package_list`
+
+```jsonc
+{
+  // ...,
+  "segments": [
+    {
+      "exported_objects": [
+        {
+          // ...,
+          "list": [
+            // ...,
+            "/out/data/catch/characters/customization/accessories/player_icon/player_icon_custom.accessory"
+          ],
+          "guids": [
+            // ...,
+            "abcdef01-3784c316-5ae06af5-01d6ca75"
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### `catalog_manager.level`
+
+```jsonc
+{
+  "segments": [
+    {
+      // ...
+      "exported_objects": [
+        {
+          // ...
+          "entities": [
+            {
+              // ...
+              "components": [
+                // ...
+                {
+                  // ...
+                  "list_accessory": [
+                    // ...
+                    "abcdef01-3784c316-5ae06af5-01d6ca75"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "imports": [
+    // ...
+    "abcdef01-3784c316-5ae06af5-01d6ca75"
+  ]
+}
+```
+
+### `catalog_manager.level.package_list`
+
+```jsonc
+{
+  // ...
+  "segments": [
+    {
+      "exported_objects": [
+        {
+          // ...
+          "list": [
+            // ...
+            "/out/data/catch/characters/customization/accessories/player_icon/player_icon_custom.accessory",
+            "/out/data/catch/levels/catalog_manager.level"
+          ],
+          "guids": [
+            // ...
+            "abcdef01-3784c316-5ae06af5-01d6ca75"
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

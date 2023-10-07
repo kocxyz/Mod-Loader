@@ -1,0 +1,50 @@
+---
+title: Getting Started
+sidebar:
+  order: 1
+---
+
+import Link from '@/components/Link.astro';
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+
+<InternalsWarningAside />
+
+In this section we'll take a look at all the steps needed to start modding.
+
+## Digging into the files
+
+In order to start modding [Knockout City](https://www.knockoutcity.com/)
+your should probably familiarize yourself with the files and see what exists. In
+order to do that your firstly need to download either the [Client Version](https://www.knockoutcity.com/private-server-edition#section-download)
+or the [Server only Version](https://www.knockoutcity.com/private-server-edition#section-download).
+
+After you have downloaded the files there should be a `data.zip` in the Server folder.
+
+:::note[Did you know?]
+This is not an odenary zip file but rather a <Link href='knockoutcity-reference/vzip/overview'>`VZip`</Link>
+:::
+
+In order to extract the files from the `data.zip` you need a special script to
+convert it into a real `.zip` file. This script can be found on [GitHub]().
+Place the script inside the folder that contains the `data.zip` file and run the
+following in your Terminal:
+
+```bash
+python3 vheader-strip.py data.zip
+```
+
+This should create a new file called `data-stripped.zip`. Now you can extract
+the `.zip` file with the tool of your choice.
+
+## Overwritting files
+
+:::note
+This is only needed for local testing. Once mod support is integrated into the
+launcher mod creating will be different!
+:::
+
+In order to overwrite game files you need to create an `out` folder where the
+`.exe` of the game is located. Also create an empty file called `.viper_root` in the same folder. Place the files you want to overwrite into the
+`out` folder with the same sub-folder structure as the game itself. Also make
+sure to overwrite the `.package_list` file that references the file you like to
+overwrite as well as update the reference to `/out/...`.

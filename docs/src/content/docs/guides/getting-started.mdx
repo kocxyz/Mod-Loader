@@ -1,0 +1,48 @@
+---
+title: Getting Started
+sidebar:
+  order: 1
+---
+
+import Link from '@/components/Link.astro';
+
+In this section you will learn about the basics of creating [Knockout City](https://www.knockoutcity.com/) mods and kickstart you on your modding journey.
+
+## Creating your first mod
+
+Mods allow you to add new content, features, or tweaks to [Knockout City](https://www.knockoutcity.com/). A mod consists of a simple folder structure and a metadata file called <Link href='reference/metadata'>`metadata.yml`</Link>. Details information about the specific structure can be found in the <Link href='guides/mod-structure'>Mod Structure</Link> section.
+
+### Basic Structure
+
+To get started create folder containing the <Link href='reference/metadata'>`metadata.yml`</Link> file. This will mark the root of your mod. 
+
+Let's create two more folders called <Link href='guides/mod-structure#assets'>`assets`</Link> and <Link href='guides/mod-structure#defs'>`defs`</Link>. Those will contain your assets and sources for the mod.
+
+### Creating Assets
+
+(Will require a external program to generate needed files)  
+Coming Soon
+
+### Defining an item
+
+In order to create a new item you need to create a new <Link href='reference/item'>`*.item`</Link> file somewhere inside the <Link href='guides/mod-structure#defs'>`defs`</Link> folder.
+
+Let's say we want to create a new orange ball player icon. Create a file called `orange_ball_player_icon.item` inside the <Link href='guides/mod-structure#defs'>`defs`</Link> folder.
+
+```yaml
+definition_version: 1.0
+
+uuid: 5c93ad6a-7a86-4765-a051-651fdbe5ee82
+name: Orange Ball
+type: player_icon
+rarity: common
+in_initial_inventory: true
+
+icons:
+  normal: /orange_ball_normal.import
+  small: /orange_ball_small.import
+```
+
+### Testing your mod
+
+Coming Soon

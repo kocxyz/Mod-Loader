@@ -1,0 +1,56 @@
+---
+title: Metadata
+
+sidebar:
+  order: 0
+---
+
+This section explains the structure of the `metadata.yml` defined by a mod.
+
+## Structure
+
+```yaml
+# The definition version of the metadata
+# SHOULD be `1.0` currently
+definition_version: 1.0
+
+# The name of the mod
+#
+# Allowed characters: [a-z], [0-9] and _
+# MUST NOT start with _ or a number!
+name: string
+
+# A short description of the mod and what it does.
+description: string
+
+# The current version of the mod.
+#
+# MUST be in semantic version format (https://semver.org/)
+version: string
+
+# The name of the mod author
+author: string
+
+paths:
+  # The path to the mod source folder
+  #
+  # Default: defs
+  definitions: string
+  # The path to the mod assets folder
+  #
+  # Default: assets
+  assets: string
+
+# A list of compatible game versions
+#
+# SHOULD be '269701' in all cases currently
+compatible_versions:
+  - 269701
+
+# Dependencies the mod requires
+#
+# (Functionallity will be implemented in the future!)
+dependencies:
+#  core: 1.0.1
+#  ui: 2.3.*
+```

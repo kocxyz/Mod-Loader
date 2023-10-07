@@ -1,0 +1,56 @@
+---
+title: Achievement List
+---
+
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+import WorkInProgressAside from '@/content/asides/Work-In-Progress-Aside.md';
+import VJsonHintAside from '@/content/asides/VJson-Hint-Aside.md';
+
+<InternalsWarningAside />
+<WorkInProgressAside />
+
+A List of Platform Achievements and their condition.
+This has been used to award Achievements on `Origin`, `Epic`, `Steam` or `XBox` once certain contracts have been completed.  
+_(Doesn't really look useful to modding but listed for completeness)_
+
+## Structure
+
+<VJsonHintAside />
+
+```typescript
+type Achievement = {
+  achievement_id: number;
+  contract: GUID;
+};
+
+type AchievementList = {
+  /**
+   * The GUID of the Object.
+   */
+  $guid: GUID;
+  /**
+   * The name of the Object.
+   */
+  $name?: string;
+  /**
+   * The VTable reference
+   */
+  vtable: GUID;
+  /**
+   * The path to the file this Object is located in.
+   *
+   * Example: /data/catch/achievements/origin.achievement_list
+   */
+  path: `${string}.achievement_list`;
+  /**
+   * A List of Achievements for the specific platform.
+   */
+  achievements: Achievement[];
+  /**
+   * ???
+   *
+   * Example: 8f59a2be-3fa7-4b1e-80f5-3be38d16ee90
+   */
+  achievement_token: UUIDv4;
+};
+```

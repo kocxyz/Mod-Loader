@@ -1,0 +1,124 @@
+---
+title: Contract
+---
+
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+import WorkInProgressAside from '@/content/asides/Work-In-Progress-Aside.md';
+import VJsonHintAside from '@/content/asides/VJson-Hint-Aside.md';
+
+<InternalsWarningAside />
+<WorkInProgressAside />
+
+## Structure
+
+<VJsonHintAside />
+
+```typescript
+type Award = {
+  rewards: GUID[];
+};
+
+type Contract = {
+  /**
+   * The GUID of the Object.
+   */
+  $guid: GUID;
+  /**
+   * The name of the Object.
+   */
+  $name?: string;
+  /**
+   * The VTable reference.
+   */
+  vtable: GUID;
+  /**
+   * The path to the file this Object is located in.
+   *
+   * Example: /data/catch/contracts/lifetime/l_ko.contract_def
+   */
+  path: `${string}.contract_def`;
+  /**
+   * Human readable Id???
+   */
+  token: string;
+  /**
+   * The name of the contract.
+   */
+  name: LocalizedText;
+  /**
+   * The description of the contract.
+   */
+  description: LocalizedText;
+  /**
+   * The category of the contract.
+   */
+  category:
+    | 'k_contract_category_achievement'
+    | 'k_contract_category_any'
+    | 'k_contract_category_crew'
+    | 'k_contract_category_daily'
+    | 'k_contract_category_event'
+    | 'k_contract_category_pass'
+    | 'k_contract_category_pass_diamond'
+    | 'k_contract_category_lifetime'
+    | 'k_contract_category_login'
+    | 'k_contract_category_seasonal'
+    | 'k_contract_category_tutorial';
+  /**
+   * The sub-category within {@link category} of the contract.
+   */
+  subcategory:
+    | 'k_contract_subcategory_none'
+    | 'k_contract_subcategory_pass_escalating'
+    | 'k_contract_subcategory_pass_week_min'
+    | 'k_contract_subcategory_pass_week_02'
+    | 'k_contract_subcategory_pass_week_03'
+    | 'k_contract_subcategory_pass_week_04'
+    | 'k_contract_subcategory_pass_week_05'
+    | 'k_contract_subcategory_pass_week_06'
+    | 'k_contract_subcategory_pass_week_07'
+    | 'k_contract_subcategory_pass_week_08'
+    | 'k_contract_subcategory_pass_week_09'
+    | 'k_contract_subcategory_pass_week_10'
+    | 'k_contract_subcategory_pass_week_11'
+    | 'k_contract_subcategory_pass_week_12'
+    | 'k_contract_subcategory_pass_week_13'
+    | 'k_contract_subcategory_tutorial_introduction';
+  /**
+   * A reference to the implementation of the contract logic.
+   */
+  implementation_level: GUID;
+  /**
+   * The icon of the contract.
+   *
+   * Note: In case of multi stage contract the same as the first in
+   * {@link multi_icons}.
+   */
+  icon?: GUID;
+  /**
+   * The different icons to display at each stage of the contract.
+   *
+   * Note: Needs to have exactly the same amount of entries as
+   * {@link multi_denominators}.
+   */
+  multi_icons?: GUID[];
+  /**
+   * The value that has to be reached in order for the contract to be marked as
+   * completed.
+   */
+  denominator?: number;
+  /**
+   * The different stage values of the contract.
+   *
+   * Example: [200, 800, 2500]
+   */
+  multi_denominators?: number[];
+  /**
+   * The Awards to give to the player for each stage of the contract.
+   *
+   * Note: Needs to have exactly the same amount of entries as
+   * {@link multi_denominators}.
+   */
+  multi_awards?: Award[];
+};
+```

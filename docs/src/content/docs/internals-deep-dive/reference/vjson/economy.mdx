@@ -1,0 +1,86 @@
+---
+title: Economy
+---
+
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+import WorkInProgressAside from '@/content/asides/Work-In-Progress-Aside.md';
+import VJsonHintAside from '@/content/asides/VJson-Hint-Aside.md';
+
+<InternalsWarningAside />
+<WorkInProgressAside />
+
+## Structure
+
+<VJsonHintAside />
+
+```typescript
+type Offer = {
+  /**
+   * The VTable reference.
+   */
+  vtable: GUID;
+  /**
+   * The path to the file this Object is located in.
+   *
+   * Example: /data/catch/commerce/offers/generated/nameplate_056.commerce_offer
+   */
+  path: `${string}.commerce_offer`;
+  /**
+   * The price in {@link price_currency}
+   */
+  full_price: number;
+  /**
+   * Reference to the currency
+   */
+  price_currency: GUID;
+};
+
+type Economy = {
+  /**
+   * The GUID of the Object.
+   */
+  $guid: GUID;
+  /**
+   * The name of the Object.
+   */
+  $name?: string;
+  /**
+   * The VTable reference.
+   */
+  vtable: GUID;
+  /**
+   * The path to the file this Object is located in.
+   *
+   * Example: /data/catch/commerce/catch.economy
+   */
+  path: `${string}.economy`;
+  /**
+   * ???
+   */
+  data: GUID[];
+  /**
+   * A list of references to all currencies.
+   */
+  currencies: GUID[];
+  /**
+   * Reference to the Item Catalog.
+   *
+   * Note: Should probably always be 'b0d1b1c-01a82ecb-eca6e05e-01d5537f'
+   * (Catalog Manager)
+   */
+  item_catalog: GUID;
+  /**
+   * Reference to the Player Progression.
+   *
+   * Note: Should probably always be '92239c30-0fc03e81-dc8cfbb6-01d5216c'
+   * (Player Progression)
+   */
+  progression: GUID;
+  /**
+   * The offers that exist in the game.
+   *
+   * Note: GUID should be the prefered way or reference.
+   */
+  offers: (GUID | Offer)[];
+};
+```

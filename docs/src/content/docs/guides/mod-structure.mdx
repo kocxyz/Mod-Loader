@@ -1,0 +1,50 @@
+---
+title: Mod Structure
+sidebar:
+  order: 2
+---
+
+import Link from '@/components/Link.astro';
+import FileTree from '@/components/FileTree.astro';
+
+Here's how a [Knockout City](https://www.knockoutcity.com/) Mod is organized.
+
+## Files and directories
+
+- `assets/*` - Your mods assets (import files, ...)
+- `defs/*` - Your mods sources (items, ...)
+- <Link href='reference/metadata'>`metadata.yml`</Link> - A mod manifest
+
+### Example Mod Contents
+
+A common Mod Structure might look like this:
+
+<FileTree>
+
+- assets/
+- defs/
+  - items/
+    - <Link href='reference/item'>custom-item-01.item</Link>
+    - <Link href='reference/item'>custom-item-02.item</Link>
+- <Link href='reference/metadata'>metadata.yml</Link>
+
+</FileTree>
+
+### `assets/`
+
+The `assets/` directory is for files and assets that are referenced by source files.
+
+### `defs/`
+
+:::tip
+This folder as well as deeply nested folders will get searched through.
+Meaning you can structure your mod files however you prefer!
+:::
+
+The `defs/` folder is where almost all of your mods sources are located. This includes:
+
+- <Link href='reference/item'>Items</Link>
+
+### <Link href='reference/metadata'>`metadata.yml`</Link>
+
+This file containes all neccessary information for mod loaders to load the mod successfully. Furthermore, it includes metadata information about the mod.

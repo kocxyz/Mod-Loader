@@ -1,0 +1,104 @@
+---
+title: Overview
+description: Advanced look into the VJson Format.
+
+sidebar:
+  order: 0
+---
+
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+
+<InternalsWarningAside />
+
+In this section we will talk about the custom `VJson` format [Knockout City](https://www.knockoutcity.com/)
+uses for its items, behaviour, layouts, and much more. It is a vital part to be
+able to understand and modify the game.
+
+## General Structure
+
+:::note
+This is the generic structure all files in the VJson format should follow.
+Depending on the concrete file type additional fields can be required. Please
+check the reference for the specific file type for more information!
+:::
+
+```typescript
+/**
+ * Each GUID is contained of 4 Segments with length 8, seperated by a '-'.
+ * Each character in the GUID is in Base 16 (0-9, A-F)
+ *
+ * Examples:
+ * 00000000-00000000-00000000-00000000
+ * ABCDEF12-34567890-00000000-00000000
+ */
+type GUID = `${string}-${string}-${string}-${string}`;
+
+type ExportedObject = {
+  /**
+   * The GUID of the Object.
+   */
+  $guid: GUID;
+  /**
+   * The name of the Object.
+   */
+  $name?: string;
+  /**
+   * The VTable reference.
+   */
+  vtable: GUID;
+  /**
+   * The path to the file this Object is located in.
+   */
+  path: string;
+
+  // More depending on the specific Object variant
+  // ...
+};
+
+type Segment = {
+  /**
+   * List of exported objects
+   */
+  exported_objects: ExportedObject[];
+  /**
+   * The name of the Segment
+   */
+  name: string;
+  /**
+   * ???
+   */
+  size: number;
+  /**
+   * Bit alignment???
+   */
+  alignment: 8;
+};
+
+type VJSON = {
+  /**
+   * A List of segments.
+   */
+  segments: Segment[];
+  /**
+   * The VTable reference.
+   */
+  vtable: GUID;
+  /**
+   * The specification verion of VJson.
+   */
+  version: 'vjson-1';
+  /**
+   * A List of GUIDs that should be imported / are referenced in the file.
+   *
+   * Note: Can only contain GUIDs that are exported by other files.
+   */
+  imports: GUID[];
+  /**
+   * A List of GUIDs that are exported for other files to use.
+   *
+   * Assumption: Only GUIDs that appear under {@link segments} can be referenced
+   * here.
+   */
+  exports: GUID[];
+};
+```

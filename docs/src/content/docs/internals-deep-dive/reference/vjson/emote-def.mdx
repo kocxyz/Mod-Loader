@@ -1,0 +1,94 @@
+---
+title: Emote
+---
+
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+import WorkInProgressAside from '@/content/asides/Work-In-Progress-Aside.md';
+import VJsonHintAside from '@/content/asides/VJson-Hint-Aside.md';
+
+<InternalsWarningAside />
+<WorkInProgressAside />
+
+## Structure
+
+<VJsonHintAside />
+
+```typescript
+type Emote = {
+  /**
+   * The GUID of the Object
+   */
+  $guid: GUID;
+  /**
+   * The name of the Object
+   */
+  $name?: string;
+  /**
+   * The VTable reference
+   */
+  vtable: GUID;
+  /**
+   * The path to the file this Object is located in.
+   */
+  path: `${string}.emote_def`;
+  /**
+   * How long the emote should be displayed for (in seconds?).
+   */
+  alive_duration: number;
+  /**
+   * ???
+   */
+  animation?: GUID;
+  /**
+   * ???
+   */
+  animation_ball?: GUID;
+  /**
+   * ???
+   */
+  all_trigger_cooldown?: number;
+  /**
+   * If the background should be colored in team colors.
+   */
+  balloon_sprite_use_team_color: boolean;
+  /**
+   * ???
+   */
+  category?: 'k_emote_category_message';
+  /**
+   * ???
+   */
+  companion_cooldown?: number;
+  /**
+   * ???
+   */
+  head_animation_spreadsheet?: GUID;
+  /**
+   * Reference to the level that describes how to emote looks.
+   */
+  level: GUID;
+  /**
+   * ???
+   */
+  max_intensity_level?: number;
+  /**
+   * Time that needs to elapse before the emote can be activated again (in seconds).
+   */
+  retrigger_cooldown: number;
+  /**
+   * ???
+   */
+  sfx_oneshot_name: string;
+  /**
+   * ???
+   */
+  sfx_taunt_switch?: GUID;
+  /**
+   * Time that needs to elapse before the emote sound will be activated again
+   * (in seconds).
+   *
+   * Should be aroung 1.5s to prevent sound spamming.
+   */
+  sound_retrigger_cooldown: number;
+};
+```

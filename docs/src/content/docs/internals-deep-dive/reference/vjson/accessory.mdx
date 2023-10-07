@@ -1,0 +1,105 @@
+---
+title: Accessory
+---
+
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+import WorkInProgressAside from '@/content/asides/Work-In-Progress-Aside.md';
+import VJsonHintAside from '@/content/asides/VJson-Hint-Aside.md';
+
+<InternalsWarningAside />
+<WorkInProgressAside />
+
+## Structure
+
+<VJsonHintAside />
+
+```typescript
+type Accessory = {
+  /**
+   * The GUID of the Object.
+   */
+  $guid: GUID;
+  /**
+   * The name of the Object.
+   */
+  $name?: string;
+  /**
+   * The VTable reference
+   */
+  vtable: GUID;
+  /**
+   * The path to the file this Object is located in.
+   *
+   * Example: /data/catch/characters/customization/accessories/cinematic_lose_038.accessory"
+   */
+  path: `${string}.accessory`;
+  /**
+   * The name of the accessory
+   */
+  name: LocalizedText;
+  /**
+   * The type of accessory
+   */
+  accessory_type:
+    | 'k_accessory_type_feature_face'
+    | 'k_accessory_type_feature_face_eye_color'
+    | 'k_accessory_type_feature_voice'
+    | 'k_accessory_type_feature_skin_type'
+    | 'k_accessory_type_feature_body_type'
+    | 'k_accessory_type_expression_intro'
+    | 'k_accessory_type_expression_win'
+    | 'k_accessory_type_expression_lose'
+    | 'k_accessory_type_expression_mvp'
+    | 'k_accessory_type_expression_brag'
+    | 'k_accessory_type_expression_taunt'
+    | 'k_accessory_type_expression_ko_effect'
+    | 'k_accessory_type_expression_ult_throw_hologram'
+    | 'k_accessory_type_crew_banner'
+    | 'k_accessory_type_crew_vehicle'
+    | 'k_accessory_type_crew_horn'
+    | 'k_accessory_type_crew_logo_front'
+    | 'k_accessory_type_crew_logo_back'
+    | 'k_accessory_type_style_outfit'
+    | 'k_accessory_type_style_hair'
+    | 'k_accessory_type_style_hair_color'
+    | 'k_accessory_type_style_glasses'
+    | 'k_accessory_type_style_makeup_color'
+    | 'k_accessory_type_style_gloves'
+    | 'k_accessory_type_style_glider'
+    | 'k_accessory_type_physics_ball'
+    | 'k_accessory_type_jukebox_track'
+    | 'k_accessory_type_player_icon'
+    | 'k_accessory_type_consumable_energy_drink'
+    | 'k_accessory_type_consumable_xp_boost'
+    | 'k_accessory_type_trophy';
+
+  /**
+   * The rarity of the accessory
+   */
+  rarity:
+    | 'k_rarity_common'
+    | 'k_rarity_uncommon'
+    | 'k_rarity_rare'
+    | 'k_rarity_epic'
+    | 'k_rarity_legendary'
+    | 'k_rarity_chrome';
+  /**
+   * The platforms the accessory is available for
+   */
+  platform_restriction: 'k_platform_family_invalid';
+  /**
+   *
+   */
+  icon_package: GUID;
+  /**
+   *
+   */
+  small_icon_package: GUID;
+  /**
+   * If the accessory should be in the initial inventory of a player.
+   *
+   * (Doesn't have an effect in the private build)
+   */
+  in_initial_inventory?: boolean;
+};
+```

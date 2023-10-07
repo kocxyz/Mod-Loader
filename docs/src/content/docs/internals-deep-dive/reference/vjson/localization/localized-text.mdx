@@ -1,0 +1,56 @@
+---
+title: Localized Text
+---
+
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+import WorkInProgressAside from '@/content/asides/Work-In-Progress-Aside.md';
+
+<InternalsWarningAside />
+<WorkInProgressAside />
+
+## Structure
+
+```typescript
+type LocalizedText = {
+  /**
+   * Example: CATCH_3E12B118
+   */
+  external_string_id: string;
+  /**
+   * The VTable Reference
+   */
+  vtable: GUID;
+  /**
+   * A List of Strings for the different languages
+   *
+   * Contains 18 different languages in the following order:
+   * - English
+   * - ?
+   * - French
+   * - Italian
+   * - German
+   * - Spanish
+   * - Japanese
+   * - Dutch
+   * - Korean
+   * - Chinese (PRC)
+   * - Chinese (Taiwan)
+   * - Portuguese
+   * - Polish
+   * - Russian
+   * - English (United Kingdom)
+   * - French (Canada)
+   * - Spanish (appropriate for the Latin America and Caribbean region)
+   * - Spanish (Mexico)
+   */
+  text: string[];
+  /**
+   * ???
+   */
+  version: number[];
+  /**
+   * ???
+   */
+  import_hash: number;
+};
+```

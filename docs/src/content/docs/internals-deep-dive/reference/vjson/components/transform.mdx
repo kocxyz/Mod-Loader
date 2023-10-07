@@ -1,0 +1,128 @@
+---
+title: Tansform
+---
+
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+import WorkInProgressAside from '@/content/asides/Work-In-Progress-Aside.md';
+
+<InternalsWarningAside />
+<WorkInProgressAside />
+
+The Transform Component is used to position an entity in the screen space.
+One thing to note is that the point of origin `(0, 0)` is in the center of the
+screen **not** in the upper left corner.
+
+## Structure
+
+```typescript
+type TransformComponent = {
+  /**
+   * The VTable Reference.
+   */
+  vtable: GUID;
+  /**
+   * The unique GUID for the component.
+   */
+  $guid: GUID;
+  /**
+   * The name of the component.
+   */
+  component_name?: string;
+  /**
+   * Options to automatically infer the dimensions of the component without
+   * having to specify them manually.
+   */
+  auto_dimension_type?: /**
+   * Automatically infer the dimensions from the text that is represented in
+   * the object.
+   *
+   * See: TextComponent
+   */
+  | 'k_auto_dim_from_text'
+    /**
+     * ???
+     */
+    | 'k_auto_dim_from_text_min_width'
+    /**
+     * Automatically infer the dimension from the parent object.
+     */
+    | 'k_auto_dim_from_parent'
+    /**
+     * Automatically infer the dimensions from the children.
+     */
+    | 'k_auto_dim_from_child'
+    /**
+     * Automatically infer the dimensions from the sprite that is represented in
+     * the object.
+     *
+     * See: SpriteComponent
+     */
+    | 'k_auto_dim_from_sprite'
+    /**
+     * ???
+     */
+    | 'k_auto_dim_from_mask_sprite';
+  /**
+   * The manual anchor point position of the component.
+   *
+   * Default: (0, 0)???
+   */
+  initial_anchor?: {
+    x: number;
+    y: number;
+  };
+  /**
+   * The position of the object using this component.
+   */
+  initial_position?: {
+    /**
+     * Position on the X-Axis (in Pixel???)
+     */
+    x: number;
+    /**
+     * Position on the Y-Axis (in Pixel???)
+     */
+    y: number;
+  };
+  /**
+   * The dimensions of the component.
+   *
+   * Can also be automatically infered using {@link auto_dimension_type}.
+   */
+  initial_dimensions?: {
+    x: number;
+    y: number;
+  };
+  /**
+   * ???
+   */
+  initial_pivot?: {
+    x: number;
+    y: number;
+  };
+  /**
+   * ???
+   */
+  initial_scale?: {
+    x: number;
+    y: number;
+  };
+  /**
+   * The rotation of the component.
+   */
+  initial_rotation?: {
+    /**
+     * ???
+     */
+    s1: number;
+    /**
+     * ???
+     */
+    s2: number;
+    /**
+     * ???
+     */
+    s3: number;
+  };
+};
+```

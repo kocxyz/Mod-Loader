@@ -1,0 +1,80 @@
+---
+title: Level
+---
+
+import WorkInProgressAside from '@/content/asides/Work-In-Progress-Aside.md';
+import VJsonHintAside from '@/content/asides/VJson-Hint-Aside.md';
+import InternalsWarningAside from '@/content/asides/Internals-Warning-Aside.md';
+
+<InternalsWarningAside />
+<WorkInProgressAside />
+
+A Level in terms of [Knockout City](https://www.knockoutcity.com/) is
+something that exists in the game world. It can be an emote, a GUI and much more.
+If you see something in-game it most likly is a Level or contained in one.
+
+## Structure
+
+<VJsonHintAside />
+
+```typescript
+type Level = {
+  /**
+   * The VTable Reference
+   */
+  vtable: GUID;
+  /**
+   * The unique GUID for the component
+   */
+  $guid: GUID;
+  /**
+   * The name of the component
+   */
+  component_name?: string;
+
+  // More depending on the specific Component
+  // ...
+};
+
+type Entity = {
+  /**
+   * The name of the Entity
+   */
+  name: string;
+  /**
+   * The VTable Reference
+   */
+  vtable: GUID;
+  /**
+   * The unique GUID of the Entity
+   */
+  guid: GUID;
+  /**
+   * A List of components the Entity has.
+   */
+  components: Component[];
+  /**
+   * A List of child entities the Entity has.
+   */
+  children: Entity[];
+};
+
+type Level = {
+  /**
+   * The unique GUID for the Level.
+   */
+  $guid: GUID;
+  /**
+   * The VTable Reference
+   */
+  vtable: GUID;
+  /**
+   * The path of the file the Level is located in.
+   */
+  path: `${string}.level`;
+  /**
+   * A List of entities that exist inside the Level.
+   */
+  entities: Entity[];
+};
+```
