@@ -12,6 +12,14 @@ declare module 'accessories' {
   export default accessories;
 }
 
+declare module 'database' {
+  let database: {
+    [model in import('../node_modules/.pnpm/@prisma+client@5.4.1_prisma@5.4.1/node_modules/.prisma/client/index').Prisma.TypeMap['meta']['modelProps']]: import('../node_modules/.pnpm/@prisma+client@5.4.1_prisma@5.4.1/node_modules/.prisma/client/index').PrismaClient[model];
+  };
+
+  export default database;
+}
+
 declare module 'json' {
   namespace json {
     function stringify(value: any): string;
