@@ -1,6 +1,7 @@
 import type { Sandbox, SandboxAPIModule, Mod, ModModule } from '@/types';
 import ivm from 'isolated-vm';
 import path from 'path';
+import fs from 'fs';
 import {
   ConfigAPIModule,
   LoggingAPIModule,
@@ -43,6 +44,9 @@ export class ModEvaluator {
   }
 
   async evaulate() {
+    fs.mkdirSync(this.options.modsConfigDir, { recursive: true });
+    fs.mkdirSync(path.dirname(this.options.permissionsFilePath), { recursive: true });
+
     this.permissionService.loadPermissions();
 
     const sandboxAPIModules: { [specifier: string]: ModModule } = {
