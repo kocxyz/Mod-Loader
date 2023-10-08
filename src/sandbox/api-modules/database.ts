@@ -108,8 +108,8 @@ const getHostFunctionName = (modelName: PrismaModelName, operation: PrismaOperat
 
 const generateAPIModuleOperationFunction = (modelName: PrismaModelName, operation: PrismaOperation) => {
   return `
-    ${operation}: (args) => {
-      return ${getHostFunctionName(modelName, operation)}.applySyncPromise(undefined, args, {}).copy();
+    ${operation}: (...args) => {
+      return ${getHostFunctionName(modelName, operation)}.applySyncPromise(undefined, [json.stringify(args)], {}).copy();
     }
   `;
 };
@@ -125,14 +125,15 @@ const generateAPIModuleObject = (modelName: PrismaModelName) => {
 const generateHostFunction = <
   Model extends Prisma.TypeMap['meta']['modelProps'],
   Operation extends keyof Prisma.TypeMap['model'][Prisma.TypeMap['meta']['modelProps']]['operations'],
-  Args extends Prisma.TypeMap['model'][Model]['operations'][Operation]['args']
 >(
   client: any,
   modelName: Model,
   operation: Operation
 ) => {
-  return new ivm.Reference(async function (args: Args) {
-    return new ivm.ExternalCopy(await client[modelName][operation](args));
+  return new ivm.Reference(async function (json: string) {
+    const args = JSON.parse(json);
+    const result = await client[modelName][operation](...args);
+    return new ivm.ExternalCopy(result);
   });
 };
 
@@ -141,6 +142,8 @@ export const DatabaseAPIModule = (): SandboxAPIModule => ({
     name: 'database',
     specifier: 'database',
     content: `
+import json from 'json';
+
 const database = {
   ${PRISMA_MODEL_NAME.map((modelName) => generateAPIModuleObject(modelName)).join(',\n')}
 };
