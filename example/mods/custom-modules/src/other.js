@@ -1,4 +1,4 @@
 import logging from 'logging';
-import {} from './something.js';
+import './something.js';
 
 logging.info('Hello from other.js');
