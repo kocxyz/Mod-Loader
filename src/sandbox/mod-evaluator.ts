@@ -62,7 +62,7 @@ export class ModEvaluator {
     };
 
     const modEntrypointModule = this.sandbox.isolate.compileModuleSync(this.mod.entrypoint.content);
-    this.instantiateModule('.', modEntrypointModule, sandboxAPIModules);
+    this.instantiateModule(this.mod.manifest.entrypoint, modEntrypointModule, sandboxAPIModules);
     return modEntrypointModule.evaluate({ promise: true });
   }
 
