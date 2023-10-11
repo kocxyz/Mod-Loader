@@ -43,7 +43,7 @@ export class ModEvaluator {
     this.sandbox = this.createSandbox();
   }
 
-  async evaulate() {
+  evaulate() {
     fs.mkdirSync(this.options.modsConfigDir, { recursive: true });
     fs.mkdirSync(path.dirname(this.options.permissionsFilePath), { recursive: true });
 
