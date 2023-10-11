@@ -1,0 +1,41 @@
+---
+title: Getting Started
+sidebar:
+  order: 1
+---
+
+import Link from '@/components/Link.astro';
+
+## Installation
+
+```bash
+npm install knockoutcity-mod-loader   # npm
+yarn add knockoutcity-mod-loader      # yarn
+pnpm add knockoutcity-mod-loader      # pnpm
+```
+
+### Basic Usage
+
+```typescript
+import { ModLoader, ModEvaluator, OutGenerator } from 'knockoutcity-mod-loader';
+
+// Load the different mods in the mod folder.
+const loader = new ModLoader(/* configuration */);
+const mods = loader.loadMods();
+
+// Evaluate a mod
+const evaluator = new ModEvaluator(mods[0] /* configuration */);
+await evaluator.evaulate();
+
+// Generate out/ folder files for server and/or client
+const outGenerator = new OutGenerator(/* configuration */);
+await outGenerator.generate();
+```
+
+## Concept
+
+The loading of mods is divided into three phases.
+
+1. the mods manifest and module paths are loaded.
+2. the mod undergoes evaluation in a <Link href='mod-loader/sandboxing'>Sandbox</Link>.
+3. the generation of files to overwrite Server/Client behaviour.

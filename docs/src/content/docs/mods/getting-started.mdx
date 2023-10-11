@@ -1,0 +1,34 @@
+---
+title: Getting Started
+sidebar:
+  order: 1
+---
+
+import Link from '@/components/Link.astro';
+
+:::tip
+For additional examples, please visit [GitHub](https://github.com/kocxyz/Mod-Loader/tree/main/example/mods).
+:::
+
+This section will provide you with the fundamentals of creating mods for [Knockout City](https://www.knockoutcity.com/) and start you on your modding journey.
+
+## Creating your first mod
+
+Mods enable users to add fresh content, functionalities, or adjustments to [Knockout City](https://www.knockoutcity.com/). A mod incorporates scripts, assets and a manifest file named <Link href='mods/reference/manifest'>`manifest.yaml`</Link>. Comprehensive guidance on the specific structure can be found in the <Link href='mods/mod-structure'>Mod Structure</Link> section.
+
+To begin, create a folder that includes the <Link href='mods/reference/manifest'>`manifest.yaml`</Link> file, which serves as the mod's root. 
+Additionally, create an `index.js` file within the same folder as the entry point for the mod. To start with, let us employ a basic example:
+
+```js
+// index.js
+
+// Include the logging module
+import logging from 'logging';
+
+logging.info('Loading mod');
+```
+
+:::note
+[Knockout City](https://www.knockoutcity.com/) mods exclusively utilize [JavaScript](https://en.wikipedia.org/wiki/JavaScript) for modification purposes.
+The [Mod Loader](https://github.com/kocxyz/Mod-Loader) will evaluate mods within a <Link href='mod-loader/sandboxing'>Sandbox</Link> that has limited features and modules.
+:::

@@ -27,16 +27,32 @@ export default defineConfig({
       tableOfContents: true,
       sidebar: [
         {
-          label: 'Guides',
+          label: 'Mod Loader',
+          collapsed: false,
           autogenerate: {
-            directory: 'guides',
+            directory: 'mod-loader',
           },
         },
         {
-          label: 'Reference',
-          autogenerate: {
-            directory: 'reference',
-          },
+          label: 'Modding',
+          collapsed: false,
+          items: [
+            {
+              label: 'Getting Started',
+              link: '/mods/getting-started',
+            },
+            {
+              label: 'Mod Structure',
+              link: 'mods/mod-structure',
+            },
+            {
+              label: 'Reference',
+              collapsed: true,
+              autogenerate: {
+                directory: 'mods/reference',
+              },
+            },
+          ],
         },
         {
           label: 'Internals Deep Dive',

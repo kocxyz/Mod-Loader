@@ -1,0 +1,26 @@
+---
+title: Mod Sandbox
+sidebar:
+  order: 2
+---
+
+import Link from '@/components/Link.astro';
+
+To avoid risking users to malicious mods (whether server-side or client-side), the mod loader takes extra precautions.
+As such, the mods are sandboxed to safeguard the end-user.
+
+To assess the different mods, the mod loader utilises [isolated-vm](https://github.com/laverdet/isolated-vm),
+enabling the user code to be run in a secluded runtime, distinct from the main runtime.
+This prevents the mods from obtaining access to the user's file system, stealing tokens, and other potential threats.
+
+> [isolated-vm](https://github.com/laverdet/isolated-vm) is a library for nodejs which gives you access to v8's Isolate interface. This allows you to create JavaScript environments which are completely isolated from each other. This can be a powerful tool to run code in a fresh JavaScript environment completely free of extraneous capabilities provided by the nodejs runtime.
+
+To enable mods to perform additional actions, the mod loader provides specific modules to the sandbox.
+The following modules are available inside the sandbox environment:
+
+- `accessories`
+- `config`
+- `database`
+- `json`
+- `logging`
+- `permissions`
