@@ -13,7 +13,17 @@ import { PermissionsService } from '@/sandbox/services';
 import { AccessoriesAPIModule } from './api-modules/accessories';
 
 type ModEvaluatorOptions = {
+  /**
+   * The path to the folder where mod configuration files should be stored.
+   * 
+   * @default `configs`
+   */
   modsConfigDir: string;
+  /**
+   * The path to the permissions file.
+   * 
+   * @default `permissions.yml`
+   */
   permissionsFilePath: string;
 };
 
@@ -28,7 +38,7 @@ export class ModEvaluator {
     this.mod = mod;
     this.options = {
       modsConfigDir: 'configs',
-      permissionsFilePath: 'permissions.yaml',
+      permissionsFilePath: 'permissions.yml',
       ...options,
     };
     this.permissionService = new PermissionsService(mod, { permissionsFilePath: this.options.permissionsFilePath });

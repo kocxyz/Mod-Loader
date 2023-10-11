@@ -15,6 +15,12 @@ import {
 import { GUID } from '@/guid-generator';
 
 type OutGeneratorOptions = {
+  /**
+   * The path to the directory where the `out` folder and `.viper_root` will be generated.
+   *
+   * Should be the path to the folder where the `KnockoutCiy.exe` or `KnockoutCityServer.exe`
+   * are located.
+   */
   baseDir: string;
 };
 
