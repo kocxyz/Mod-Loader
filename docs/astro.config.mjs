@@ -46,6 +46,13 @@ export default defineConfig({
               link: 'mods/mod-structure',
             },
             {
+              label: 'Modules',
+              collapsed: false,
+              autogenerate: {
+                directory: 'mods/modules',
+              },
+            },
+            {
               label: 'Reference',
               collapsed: true,
               autogenerate: {
