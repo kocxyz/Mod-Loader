@@ -4,7 +4,7 @@ export const JsonAPIModule = (): SandboxAPIModule => ({
   createModule: () => ({
     name: 'json',
     specifier: 'json',
-    content: `
+    source: `
 const json = {
   stringify: (input) => {
     return __host__api__json_stringify(input);

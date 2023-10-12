@@ -7,7 +7,7 @@ export const AccessoriesAPIModule = (): SandboxAPIModule => ({
   createModule: () => ({
     name: 'accessories',
     specifier: 'accessories',
-    content: `
+    source: `
 const accessories = {
   addPlayerIcon: (guid, name, rarity, icon, inInitialInventory = true) => {
     return __host__api__accessories_create(guid, name, 'player_icon', rarity, icon, inInitialInventory);

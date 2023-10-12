@@ -9,7 +9,7 @@ export const ConfigAPIModule = (options: ConfigAPIModuleOptions): SandboxAPIModu
   createModule: () => ({
     name: 'config',
     specifier: 'config',
-    content: `
+    source: `
 const config = {
   read: (name) => {
     return __host__api__config_read(name);

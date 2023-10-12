@@ -4,6 +4,9 @@ import path from 'path';
 import yaml from 'js-yaml';
 
 type ModConfigurationServiceOptions = {
+  /**
+   * The path to the mods configuration directory.
+   */
   configDir: string;
 };
 

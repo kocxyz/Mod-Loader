@@ -8,6 +8,9 @@ import lodash from 'lodash';
 const DEFAULT_PERMISSIONS: ModPermissions = defaultInstance(ModPermissionsSchema);
 
 type PermissionsServiceOptions = {
+  /**
+   * The path to the mods permission file.
+   */
   permissionsFilePath: string;
 };
 

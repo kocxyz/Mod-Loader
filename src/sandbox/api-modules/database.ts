@@ -109,7 +109,10 @@ const getHostFunctionName = (modelName: PrismaModelName, operation: PrismaOperat
 const generateAPIModuleOperationFunction = (modelName: PrismaModelName, operation: PrismaOperation) => {
   return `
     ${operation}: (...args) => {
-      return ${getHostFunctionName(modelName, operation)}.applySyncPromise(undefined, [json.stringify(args)], {}).copy();
+      return ${getHostFunctionName(
+        modelName,
+        operation
+      )}.applySyncPromise(undefined, [json.stringify(args)], {}).copy();
     }
   `;
 };
@@ -124,7 +127,7 @@ const generateAPIModuleObject = (modelName: PrismaModelName) => {
 
 const generateHostFunction = <
   Model extends Prisma.TypeMap['meta']['modelProps'],
-  Operation extends keyof Prisma.TypeMap['model'][Prisma.TypeMap['meta']['modelProps']]['operations'],
+  Operation extends keyof Prisma.TypeMap['model'][Prisma.TypeMap['meta']['modelProps']]['operations']
 >(
   client: any,
   modelName: Model,
@@ -141,7 +144,7 @@ export const DatabaseAPIModule = (): SandboxAPIModule => ({
   createModule: () => ({
     name: 'database',
     specifier: 'database',
-    content: `
+    source: `
 import json from 'json';
 
 const database = {

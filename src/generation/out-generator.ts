@@ -31,9 +31,12 @@ export class OutGenerator {
     this.options = options;
   }
 
+  /**
+   * Generate the overwrite files inside the `baseDir`.
+   */
   async generate() {
     fs.mkdirSync(this.options.baseDir, { recursive: true });
-    const outDirPath = this.cleanOutDir();
+    const outDirPath = this.cleanOrCreateOutDir();
     this.createViperRootFile();
 
     await AccessoryVJsonGenerator.createFiles(outDirPath, accessoriesCollector);
@@ -57,7 +60,12 @@ export class OutGenerator {
     await PackageListVJsonGenerator.createFiles(outDirPath, packageListsCollector);
   }
 
-  private cleanOutDir(): string {
+  /**
+   * Clean or create the `out` directory.
+   *
+   * @returns The path to the out directory.
+   */
+  private cleanOrCreateOutDir(): string {
     const outDirPath = path.join(this.options.baseDir, 'out');
     fs.rmSync(outDirPath, { recursive: true, force: true });
     fs.mkdirSync(outDirPath, { recursive: true });
@@ -65,6 +73,9 @@ export class OutGenerator {
     return outDirPath;
   }
 
+  /**
+   * Create the `.viper_root` file inside the `baseDir`.
+   */
   private createViperRootFile() {
     const viperRootFilePath = path.join(this.options.baseDir, '.viper_root');
     fs.writeFileSync(viperRootFilePath, '');

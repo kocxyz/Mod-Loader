@@ -5,7 +5,7 @@ import path from 'path';
 import { VJsonGenerator } from '@/generation';
 
 export const PackageListVJsonGenerator: VJsonGenerator<PackageList> = {
-  createFiles: async (outDir, collector) => {
+  createFiles: async (_, collector) => {
     for (const packageList of collector.getElements()) {
       const entries = packageList.entries.getElements().reduce(
         (acc, cur) => {

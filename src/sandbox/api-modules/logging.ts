@@ -5,7 +5,7 @@ export const LoggingAPIModule = (): SandboxAPIModule => ({
   createModule: () => ({
     name: 'logging',
     specifier: 'logging',
-    content: `
+    source: `
 const logging = {
   debug: (message) => {
     __host__api__log_debug(message);

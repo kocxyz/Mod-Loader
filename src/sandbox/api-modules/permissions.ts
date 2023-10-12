@@ -4,7 +4,7 @@ export const PermissionsAPIModule = (): SandboxAPIModule => ({
   createModule: () => ({
     name: 'permissions',
     specifier: 'permissions',
-    content: `
+    source: `
 const permissions = {
   hasPermission: (permission) => {
     return __host__api__permissions_has_permission(permission);

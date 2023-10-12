@@ -15,13 +15,13 @@ import { AccessoriesAPIModule } from './api-modules/accessories';
 type ModEvaluatorOptions = {
   /**
    * The path to the folder where mod configuration files should be stored.
-   * 
+   *
    * @default `configs`
    */
   modsConfigDir: string;
   /**
    * The path to the permissions file.
-   * 
+   *
    * @default `permissions.yml`
    */
   permissionsFilePath: string;
@@ -71,7 +71,7 @@ export class ModEvaluator {
       }, {}),
     };
 
-    const modEntrypointModule = this.sandbox.isolate.compileModuleSync(this.mod.entrypoint.content);
+    const modEntrypointModule = this.sandbox.isolate.compileModuleSync(this.mod.entrypoint.source);
     this.instantiateModule(this.mod.manifest.entrypoint, modEntrypointModule, sandboxAPIModules);
     return modEntrypointModule.evaluate({ promise: true });
   }
@@ -94,7 +94,7 @@ export class ModEvaluator {
         );
       }
 
-      const innerModule = this.sandbox.isolate.compileModuleSync(module.content);
+      const innerModule = this.sandbox.isolate.compileModuleSync(module.source);
       this.instantiateModule(resolvedModulePath, innerModule, sandboxAPIModules);
       return innerModule;
     });

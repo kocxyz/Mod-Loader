@@ -124,19 +124,19 @@ export class ModLoader {
 
   /**
    * Load a module from a specified location for a mod.
-   * 
+   *
    * @param modPath The path to the directory the mod is located at.
-   * @param modulePath The path of the module to load relative to the mod path. 
-   * 
+   * @param modulePath The path of the module to load relative to the mod path.
+   *
    * @returns The loaded module.
    */
   private loadModModule(modPath: string, modulePath: string): ModModule {
     const modModulePath = path.join(modPath, modulePath);
-    const content = fs.readFileSync(modModulePath, 'utf8');
+    const source = fs.readFileSync(modModulePath, 'utf8');
     return {
       name: path.basename(modModulePath),
       specifier: modulePath,
-      content,
+      source: source,
     };
   }
 }
