@@ -16,11 +16,13 @@ This section will provide you with the fundamentals of creating mods for [Knocko
 
 Mods enable users to add fresh content, functionalities, or adjustments to [Knockout City](https://www.knockoutcity.com/). A mod incorporates scripts, assets and a manifest file named <Link href='mods/reference/manifest'>`manifest.yaml`</Link>. Comprehensive guidance on the specific structure can be found in the <Link href='mods/mod-structure'>Mod Structure</Link> section.
 
-To begin, create a folder that includes the <Link href='mods/reference/manifest'>`manifest.yaml`</Link> file, which serves as the mod's root. 
-Additionally, create an `index.js` file within the same folder as the entry point for the mod. To start with, let us employ a basic example:
+### Basic structure
+
+To begin, create a folder that includes the <Link href='mods/reference/manifest'>`manifest.yaml`</Link> file, which serves as the mod's root.
+Additionally, create an `index.ts` file within the same folder as the entry point for the mod. To start with, let us employ a basic example:
 
 ```js
-// index.js
+// index.ts
 
 // Include the logging module
 import logging from 'logging';
@@ -29,6 +31,88 @@ logging.info('Loading mod');
 ```
 
 :::note
-[Knockout City](https://www.knockoutcity.com/) mods exclusively utilize [JavaScript](https://en.wikipedia.org/wiki/JavaScript) for modification purposes.
-The [Mod Loader](https://github.com/kocxyz/Mod-Loader) will evaluate mods within a <Link href='mod-loader/sandboxing'>Sandbox</Link> that has limited features and modules.
+[Knockout City](https://www.knockoutcity.com/) mods exclusively utilize [`JavaScript`](https://en.wikipedia.org/wiki/JavaScript) for modification purposes.
+The [`Mod Loader`](https://github.com/kocxyz/Mod-Loader) will evaluate mods within a <Link href='mod-loader/sandboxing'>`Sandbox`</Link> that has limited features and modules.
 :::
+
+### Setting up Auto-Completion
+
+**Requirements:**
+
+- [`nodejs`](https://nodejs.org)
+
+To enable type completion, certain configuration is necessary.
+Firstly, we initiate the project by running the following command:
+
+```bash
+npm init    # npm
+yarn init   # yarn
+pnpm init   # pnpm
+```
+
+This should generate a `package.json` file within the directory.
+
+Next, we aim to acquire certain types suitable for the sandbox environment. For this task, we will need to install `typescript` and the `knockoutcity-mod-loader` as a development dependency.
+
+```bash
+# npm
+npm install --save-dev \
+  typescript \
+  knockoutcity-mod-loader
+
+# yarn
+yarn add --dev \
+  typescript \
+  knockoutcity-mod-loader
+
+# pnpm
+pnpm add --save-dev \
+  typescript \
+  knockoutcity-mod-loader
+```
+
+Next, we need to initialize TypeScript and create a `tsconfig.json` file within the directory:
+
+```json
+// tsconfig.json
+
+{
+  "compilerOptions": {
+    "module": "ES6",
+    "moduleResolution": "Bundler",
+    "target": "ES2020",
+    "strict": true,
+    "alwaysStrict": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist",
+    "skipLibCheck": true
+  },
+  "include": ["src/*", "env.d.ts"]
+}
+```
+
+This file specifies how to compile our mod into the required [`JavaScript`](https://en.wikipedia.org/wiki/JavaScript) format.
+
+Now create an `env.d.ts` file in the same directory with the subsequent content:
+
+```typescript
+// env.d.ts
+
+/// <reference path="./node_modules/knockoutcity-mod-loader/types/sandbox-api.d.ts" />
+```
+
+### Testing the mod
+
+Coming Soon.
+
+### Shipping the mod
+
+Firstly, we must compile our sources to [`JavaScript`](https://en.wikipedia.org/wiki/JavaScript). This can be achieved with the following command in bash:
+
+```bash
+npx tsc   # npm
+yarn tsc  # yarn
+pnpm tsc  # pnpm
+```
+
+We can now package it by zipping the `dist` folder together with the `manifest.yml` file. This will allow us to easily share our mod.
