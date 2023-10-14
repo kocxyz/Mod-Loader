@@ -23,8 +23,6 @@ A common Mod Structure might look like this:
 
 - assets/
   - custom_player_icon.png.import
-- src/
-  - other_script.js
 - index.js
 - <Link href='mods/reference/manifest'>manifest.yaml</Link>
 
@@ -32,11 +30,11 @@ A common Mod Structure might look like this:
 
 ### `assets/`
 
-The `assets/` directory is for files and assets that are referenced by source files.
+The `assets/` directory is for files and assets that are referenced by source files. This folder can also be named dirrently but `assets` is recommended.
 
 ### `index.js`
 
-This file is the entrypoint to your mod. It will be loaded by the mod loader.
+This file is the entrypoint to your mod. It will be loaded by the mod loader. Could also be named differently or located somewhere else but the <Link href='mods/reference/manifest'>`manifest.yaml`</Link> `entrypoint` has to be changed accordingly.
 
 ### <Link href='mods/reference/manifest'>`manifest.yaml`</Link>
 
