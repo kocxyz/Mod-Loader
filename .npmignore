@@ -1,0 +1,8 @@
+.github/
+.gitignore
+.env
+
+templates/
+example/
+docs/
+src/
