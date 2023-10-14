@@ -1,0 +1,77 @@
+---
+title: Permissions
+sidebar:
+  order: 3
+---
+
+import Link from '@/components/Link.astro';
+
+In order to prevent mods accessing specific data the mod loader allows for fine grained control of each mods permissions. The permissions are defined in a `permissions.yaml` file. Lets look at the following example to understand the structure a bit better:
+
+```yaml
+mod-1: # name of the mod defined in its manifest.yaml
+  database: # database section
+    users: # users table inside the database
+      read: true # only allow reading
+
+mod-2: # name of the mod defined in its manifest.yaml
+  database: # database section
+    news: # news table inside the database
+      write: true # allow writing / create / updating entries
+      delete: true # allow to delete entries
+```
+
+In the example above we explicitly allow `mod-1` to read the `users` table from the database. As for the `mod-2`, we allow it to write and delete entry in the `news` table of the database.
+
+## Permissions Overview
+
+### Database Permissions
+
+:::caution
+All permissions are set to `false` by default to prevent unintended access.
+:::
+
+:::note
+For the different database tables and their use cases please refer to the SQL Deep Dive section.
+:::
+
+```yaml
+database:
+  [tablename]:
+    read: false
+    write: false
+    delete: false
+```
+
+##### `read`
+
+Getting information from a Table. In SQL Terms `SELECT`.
+Regarding the API the following actions are allowed:
+
+- `findUnique`
+- `findUniqueOrThrow`
+- `findFirst`
+- `findFirstOrThrow`
+- `findMany`
+- `aggregate`
+- `groupBy`
+- `count`
+
+##### `write`
+
+Writing information inside a Table. In SQL Terms `UPDATE` and `INSERT`.
+Regarding the API the following actions are allowed:
+
+- `create`
+- `createMany`
+- `update`
+- `updateMany`
+- `upsert`
+
+##### `delete`
+
+Deleting information from a Table. In SQL Terms `DELETE`.
+Regarding the API the following actions are allowed:
+
+- `delete`
+- `deleteMany`
