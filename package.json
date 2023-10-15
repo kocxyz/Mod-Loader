@@ -1,6 +1,6 @@
 {
   "name": "knockoutcity-mod-loader",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "A Mod Loader for Knockout City",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
