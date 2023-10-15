@@ -14,13 +14,21 @@ This section will provide you with the fundamentals of creating mods for [Knocko
 
 ## Creating your first mod
 
+:::note[Disclaimer]
+[Knockout City](https://www.knockoutcity.com/) mods exclusively utilize [`JavaScript`](https://en.wikipedia.org/wiki/JavaScript) for modification purposes.
+The [`Mod Loader`](https://github.com/kocxyz/Mod-Loader) will evaluate mods within a <Link href='mod-loader/sandboxing'>`Sandbox`</Link> that has limited features and modules.
+
+For better type completion and writing mods in a type-safer way it is recommended to use [`TypeScript` ](https://en.wikipedia.org/wiki/TypeScript) and the provided Types.
+Auto-Completion and Type-Safty with [`TypeScript` ](https://en.wikipedia.org/wiki/TypeScript) will be configured in a later section.
+:::
+
 Mods enable users to add fresh content, functionalities, or adjustments to [Knockout City](https://www.knockoutcity.com/). A mod incorporates scripts, assets and a manifest file named <Link href='mods/reference/manifest'>`manifest.yaml`</Link>. Comprehensive guidance on the specific structure can be found in the <Link href='mods/mod-structure'>Mod Structure</Link> section.
 
 ### Basic structure
 
-:::tip
-You can also use the [`knockoutcity-mod-create`](https://www.npmjs.com/package/knockoutcity-mod-create) Package to create a template.
-Than you can skip all the manual setup and jump right into the action!
+:::tip[Want to safe time?]
+You can also use the [`knockoutcity-mod-create`](https://www.npmjs.com/package/knockoutcity-mod-create) NPM Package to automatically create an example project.
+Then you can skip all the manual setup and jump right into the action!
 
 ```bash
 npx knockoutcity-mod-create   # npm
@@ -40,11 +48,6 @@ import logging from 'logging';
 
 logging.info('Loading mod');
 ```
-
-:::note
-[Knockout City](https://www.knockoutcity.com/) mods exclusively utilize [`JavaScript`](https://en.wikipedia.org/wiki/JavaScript) for modification purposes.
-The [`Mod Loader`](https://github.com/kocxyz/Mod-Loader) will evaluate mods within a <Link href='mod-loader/sandboxing'>`Sandbox`</Link> that has limited features and modules.
-:::
 
 ### Setting up Auto-Completion
 
