@@ -1,32 +1,45 @@
 {
   "name": "knockoutcity-mod-loader",
   "version": "1.0.0-alpha.1",
-  "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "description": "A Mod Loader for Knockout City",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "files": [
     "/dist",
     "/types"
   ],
+  "bin": {
+    "knockoutcity-mod-loader": "dist/bin/cli.js"
+  },
+  "_moduleAliases": {
+    "@": "dist/src",
+    "~": "dist/bin"
+  },
   "scripts": {
     "postinstall": "prisma generate",
-    "build": "tsc"
+    "build": "tsc && cp -r templates dist/"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/figlet": "^1.5.6",
     "@types/js-yaml": "^4.0.6",
     "@types/lodash": "^4.14.199",
+    "@types/module-alias": "^2.0.2",
     "@types/node": "^20.7.1",
     "prisma": "^5.4.1",
     "tsconfig-paths": "^4.2.0"
   },
   "dependencies": {
     "@prisma/client": "5.4.1",
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "figlet": "^1.6.0",
     "glob": "^10.3.10",
     "isolated-vm": "^4.6.0",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
+    "module-alias": "^2.2.3",
     "template-file": "^6.0.1",
     "typescript": "^5.2.2",
     "winston": "^3.10.0",

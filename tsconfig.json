@@ -7,14 +7,17 @@
     "strict": true,
     "alwaysStrict": true,
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "~/*": ["bin/*"]
     },
     "outDir": "./dist"
   },
   "exclude": ["example/*"],
-  "include": ["src/*"],
+  "include": ["src/*", "bin/**/*"],
   "ts-node": {
     "require": ["tsconfig-paths/register"]
   }
