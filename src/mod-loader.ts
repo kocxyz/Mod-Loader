@@ -23,7 +23,7 @@ type ModLoaderOptions = {
    *
    * @default `js`
    */
-  modExtension: string;
+  modModuleExtension: string;
 };
 
 export class ModLoader {
@@ -33,7 +33,7 @@ export class ModLoader {
     this.options = {
       modDir: 'mods',
       manifestPath: 'manifest.yaml',
-      modExtension: 'js',
+      modModuleExtension: 'js',
       ...options,
     };
   }
@@ -118,7 +118,7 @@ export class ModLoader {
    * @returns The loaded modules.
    */
   private loadModModules(modPath: string): ModModule[] {
-    const modulePaths = globSync(`${modPath}/**/*.${this.options.modExtension}`);
+    const modulePaths = globSync(`${modPath}/**/*.${this.options.modModuleExtension}`);
     return modulePaths.map((modulePath) => this.loadModModule(modPath, path.relative(modPath, modulePath)));
   }
 
