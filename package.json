@@ -6,7 +6,8 @@
   "types": "dist/src/index.d.ts",
   "files": [
     "/dist",
-    "/types"
+    "/types",
+    "/prisma"
   ],
   "bin": {
     "knockoutcity-mod-loader": "dist/bin/cli.js"
