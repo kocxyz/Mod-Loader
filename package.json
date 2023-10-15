@@ -28,11 +28,11 @@
     "@types/lodash": "^4.14.199",
     "@types/module-alias": "^2.0.2",
     "@types/node": "^20.7.1",
-    "prisma": "^5.4.1",
+    "prisma": "5.4.2",
     "tsconfig-paths": "^4.2.0"
   },
   "dependencies": {
-    "@prisma/client": "5.4.1",
+    "@prisma/client": "5.4.2",
     "chalk": "^4.1.2",
     "commander": "^11.1.0",
     "figlet": "^1.6.0",
