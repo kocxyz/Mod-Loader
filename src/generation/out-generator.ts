@@ -40,23 +40,24 @@ export class OutGenerator {
     this.createViperRootFile();
 
     await AccessoryVJsonGenerator.createFiles(outDirPath, accessoriesCollector);
-
     await PackageVJsonGenerator.createFiles(outDirPath, packagesCollector);
 
-    packageListsCollector.collect({
-      guid: '// NOT NEEDED IN TEMPLATE //' as GUID,
-      path: path.join(outDirPath, 'data/catch/commerce/catch.economy.package_list'),
-      viperFSPath: '// NOT NEEDED IN TEMPLATE //',
-      entries: economyPackageListEntryCollector,
-      template: CatchEconomyPackageListVJsonTemplate,
-    });
-    packageListsCollector.collect({
-      guid: '// NOT NEEDED IN TEMPLATE //' as GUID,
-      path: path.join(outDirPath, 'data/catch/levels/catalog_manager.level.package_list'),
-      viperFSPath: '// NOT NEEDED IN TEMPLATE //',
-      entries: catalogManagerPackageListEntryCollector,
-      template: CatalogManagerPackageListVJsonTemplate,
-    });
+    if (economyPackageListEntryCollector.size > 0 || catalogManagerPackageListEntryCollector.size > 0) {
+      packageListsCollector.collect({
+        guid: '// NOT NEEDED IN TEMPLATE //' as GUID,
+        path: path.join(outDirPath, 'data/catch/commerce/catch.economy.package_list'),
+        viperFSPath: '// NOT NEEDED IN TEMPLATE //',
+        entries: economyPackageListEntryCollector,
+        template: CatchEconomyPackageListVJsonTemplate,
+      });
+      packageListsCollector.collect({
+        guid: '// NOT NEEDED IN TEMPLATE //' as GUID,
+        path: path.join(outDirPath, 'data/catch/levels/catalog_manager.level.package_list'),
+        viperFSPath: '// NOT NEEDED IN TEMPLATE //',
+        entries: catalogManagerPackageListEntryCollector,
+        template: CatalogManagerPackageListVJsonTemplate,
+      });
+    }
     await PackageListVJsonGenerator.createFiles(outDirPath, packageListsCollector);
   }
 
