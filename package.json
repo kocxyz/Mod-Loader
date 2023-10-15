@@ -17,7 +17,7 @@
     "~": "dist/bin"
   },
   "scripts": {
-    "postinstall": "prisma generate --schema=./prisma/schema.prisma",
+    "prisma:generate": "prisma generate",
     "build": "tsc && cp -r templates dist/"
   },
   "author": "",
