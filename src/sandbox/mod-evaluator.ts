@@ -11,6 +11,7 @@ import {
 } from '@/sandbox/api-modules';
 import { PermissionsService } from '@/sandbox/services';
 import { AccessoriesAPIModule } from './api-modules/accessories';
+import { prisma } from '@/prisma';
 
 type ModEvaluatorOptions = {
   /**
@@ -53,7 +54,9 @@ export class ModEvaluator {
     this.sandbox = this.createSandbox();
   }
 
-  evaulate() {
+  async evaulate() {
+    await prisma.$connect();
+
     fs.mkdirSync(this.options.modsConfigDir, { recursive: true });
     fs.mkdirSync(path.dirname(this.options.permissionsFilePath), { recursive: true });
 
