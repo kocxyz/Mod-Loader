@@ -118,7 +118,10 @@ export class ModLoader {
    * @returns The loaded modules.
    */
   private loadModModules(modPath: string): ModModule[] {
-    const modulePaths = globSync(`${modPath}/**/*.${this.options.modModuleExtension}`);
+    const modPathPosix = modPath.split(path.sep).join(path.posix.sep);
+    // Glob uses posix paths for globbing. Thus we need to convert
+    // a potential windows path to a posix path.
+    const modulePaths = globSync(`${modPathPosix}/**/*.${this.options.modModuleExtension}`);
     return modulePaths.map((modulePath) => this.loadModModule(modPath, path.relative(modPath, modulePath)));
   }
 

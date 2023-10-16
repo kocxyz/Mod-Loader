@@ -95,7 +95,7 @@ export class ModEvaluator {
 
       if (!module) {
         throw Error(
-          `Could not resolve module '${specifier}'. Absolut path: '${resolvedModulePathPosix}' or ${resolvedModulePathPosix}.js`
+          `Could not resolve module '${specifier}'. Absolut path: '${resolvedModulePathPosix}' or '${resolvedModulePathPosix}.js'`
         );
       }
 
