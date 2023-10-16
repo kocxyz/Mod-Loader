@@ -48,14 +48,17 @@ export class ModEvaluator {
       LoggingAPIModule(),
       JsonAPIModule(),
       PermissionsAPIModule(),
-      DatabaseAPIModule(),
       AccessoriesAPIModule(),
+      // Only expose the `database` module if its a `server-only` mod.
+      ...(mod.manifest.type === 'server-only' ? [DatabaseAPIModule()] : []),
     ];
     this.sandbox = this.createSandbox();
   }
 
   async evaulate() {
-    await prisma.$connect();
+    if (this.mod.manifest.type === 'server-only') {
+      await prisma.$connect();
+    }
 
     fs.mkdirSync(this.options.modsConfigDir, { recursive: true });
     fs.mkdirSync(path.dirname(this.options.permissionsFilePath), { recursive: true });
@@ -76,7 +79,9 @@ export class ModEvaluator {
 
     const modEntrypointModule = this.sandbox.isolate.compileModuleSync(this.mod.entrypoint.source);
     this.instantiateModule(this.mod.manifest.entrypoint, modEntrypointModule, sandboxAPIModules);
-    return modEntrypointModule.evaluate({ promise: true });
+    return modEntrypointModule.evaluate({ promise: true }).finally(async () => {
+      await prisma.$disconnect();
+    });
   }
 
   private instantiateModule(

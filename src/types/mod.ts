@@ -65,7 +65,18 @@ export const ModManifestSchema = z
      */
     version: ZodSemver,
     /**
+     * The type of the mod.
+     *
+     * - **server-client**: A mod that can be run on server and client. This will be shared with clients when installed on server side.
+     * - **server-only**: A mod that can only be run on the server. Will also have access to the database.
+     *
+     * @default `server-client`
+     */
+    type: z.enum(['server-client', 'server-only']).default('server-client'),
+    /**
      * The path to the entrypoint module.
+     *
+     * @default `index.js`
      */
     entrypoint: z.string().optional().default('index.js'),
     /**

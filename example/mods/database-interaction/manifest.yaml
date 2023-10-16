@@ -4,5 +4,7 @@ author: Tandashi
 
 version: 1.0.0
 
+type: server-only
+
 compatible_versions:
   - 269701
