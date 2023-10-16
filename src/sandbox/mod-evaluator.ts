@@ -86,19 +86,21 @@ export class ModEvaluator {
   ): void {
     module.instantiateSync(this.sandbox.context, (specifier) => {
       const resolvedModulePath = path.join(path.dirname(modulePath), specifier);
+      const resolvedModulePathPosix = resolvedModulePath.split(path.sep).join(path.posix.sep);
+
       const module =
         sandboxAPIModules[specifier] ??
-        this.mod.modules[resolvedModulePath] ??
-        this.mod.modules[`${resolvedModulePath}.js`];
+        this.mod.modules[resolvedModulePathPosix] ??
+        this.mod.modules[`${resolvedModulePathPosix}.js`];
 
       if (!module) {
         throw Error(
-          `Could not resolve module '${specifier}'. Absolut path: '${resolvedModulePath}' or ${resolvedModulePath}.js`
+          `Could not resolve module '${specifier}'. Absolut path: '${resolvedModulePathPosix}' or ${resolvedModulePathPosix}.js`
         );
       }
 
       const innerModule = this.sandbox.isolate.compileModuleSync(module.source);
-      this.instantiateModule(resolvedModulePath, innerModule, sandboxAPIModules);
+      this.instantiateModule(resolvedModulePathPosix, innerModule, sandboxAPIModules);
       return innerModule;
     });
   }

@@ -132,10 +132,12 @@ export class ModLoader {
    */
   private loadModModule(modPath: string, modulePath: string): ModModule {
     const modModulePath = path.join(modPath, modulePath);
+    const modulePathPosix = modulePath.split(path.sep).join(path.posix.sep);
     const source = fs.readFileSync(modModulePath, 'utf8');
+
     return {
       name: path.basename(modModulePath),
-      specifier: modulePath,
+      specifier: modulePathPosix,
       source: source,
     };
   }
