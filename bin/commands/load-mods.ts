@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
-import 'module-alias/register';
+import moduleAlias from 'module-alias';
+import path from 'path';
+
+moduleAlias(path.join(__dirname, '../../package.json'));
 
 import { type Mod, ModLoader, ModEvaluator, OutGenerator } from '@/index';
 import commander from 'commander';
@@ -20,8 +23,10 @@ program
     'manifest.yaml'
   )
   .option('--permission-file <path>', 'The path to the permission file', 'permissions.yaml')
-  .option('--enabled-mods <list>', 'A comma seperated list of enabled mods. If not set all mods will be loaded.', (value) =>
-    value.split(',')
+  .option(
+    '--enabled-mods <list>',
+    'A comma seperated list of enabled mods. If not set all mods will be loaded.',
+    (value) => value.split(',')
   )
   .option('--out-dir <path>', 'The output directory path for the generated files.', 'out')
 
