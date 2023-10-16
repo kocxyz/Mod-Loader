@@ -1,9 +1,6 @@
 #!/usr/bin/env node
 
-import moduleAlias from 'module-alias';
-import path from 'path';
-
-moduleAlias(path.join(__dirname, '../package.json'));
+import 'module-alias/register';
 
 import { Command } from 'commander';
 import figlet from 'figlet';

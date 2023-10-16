@@ -1,9 +1,6 @@
 #!/usr/bin/env node
 
-import moduleAlias from 'module-alias';
-import path from 'path';
-
-moduleAlias(path.join(__dirname, '../../package.json'));
+import 'module-alias/register';
 
 import { type Mod, ModLoader, ModEvaluator, OutGenerator } from '@/index';
 import commander from 'commander';
