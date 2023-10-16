@@ -8,7 +8,7 @@ import chalk from 'chalk';
 
 const program = new commander.Command();
 
-program.name('knockoutcity-mod-loader-info-mods');
+program.name('knockoutcity-mod-loader-load-mods');
 
 program
   .option('--mod-dir <path>', 'The directory where the mods are loacated', 'mods')
