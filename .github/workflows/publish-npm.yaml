@@ -20,7 +20,6 @@ jobs:
           version: 8
           run_install: true
       - run: pnpm build
-      - run: sed -i 's|dist/||g' dist/package.json
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
