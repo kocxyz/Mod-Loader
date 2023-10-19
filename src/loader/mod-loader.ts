@@ -39,12 +39,69 @@ export class ModLoader {
   }
 
   /**
-   * Load the mods inside the mods folder.
+   * Check if a mod is enabled with the specified {@link enabledMods}.
+   *
+   * @param enabledMods The enabled mods
+   * @param manifest The manifest of the mod to check
+   *
+   * @returns Wheather or not the mod is enabled
+   */
+  static isModEnabled(enabledMods: Record<string, string | undefined>, manifest: ModManifest): boolean {
+    if (!(manifest.name in enabledMods)) {
+      return false;
+    }
 
+    const version = enabledMods[manifest.name];
+    // Check if a version is specified
+    // If it is then the versions have to match
+    // Else we can load the mod.
+    if (version && version !== manifest.version) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Load the mods inside the mods folder.
+   *
+   * @param enabledMods A object with mod name to version.
+   *                    If not specified all mods will be loaded.
+   *
+   * @example
+   * ```typescript
+   * // Load all mods
+   * loadMods();
+   *
+   * // Load specific mods
+   * loadMods({
+   *    // Will load the 'server-config' mod no matter the version.
+   *    'server-config': undefined,
+   *
+   *    // Will load the 'icon' mod but only the version '1.0.2'
+   *    // other versions of the mod will not be loaded.
+   *    'icon': '1.0.2',
+   * });
+   * ```
+   *
    * @returns The loaded mods
    */
-  loadMods(): Mod[] {
-    return this.loadModPaths().map((mod) => this.loadMod(path.join(this.options.modDir, mod)));
+  loadMods(enabledMods?: Record<string, string | undefined>): Mod[] {
+    const manifests = this.loadModManifests();
+
+    // Load all mods if none are specifically enabled.
+    if (!enabledMods) {
+      return manifests.map((meta) => this.loadMod(meta.path));
+    }
+
+    return manifests.reduce((loadedMods, modMeta) => {
+      if (!ModLoader.isModEnabled(enabledMods, modMeta.manifest)) {
+        return loadedMods;
+      }
+
+      loadedMods.push(this.loadMod(modMeta.path));
+      return loadedMods;
+    }, [] as Mod[]);
   }
 
   /**
@@ -52,10 +109,16 @@ export class ModLoader {
    *
    * **Note**: Useful to determine which mods should be enabled.
    *
-   * @returns The loaded manifests
+   * @returns The loaded manifests and mod paths
    */
-  loadModManifests(): ModManifest[] {
-    return this.loadModPaths().map((mod) => this.loadModManifest(path.join(this.options.modDir, mod)));
+  loadModManifests(): { manifest: ModManifest; path: string }[] {
+    return this.loadModPaths().map((modFolderName) => {
+      const modPath = path.join(this.options.modDir, modFolderName);
+      return {
+        path: modPath,
+        manifest: this.loadModManifest(modPath),
+      };
+    });
   }
 
   /**

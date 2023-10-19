@@ -22,8 +22,15 @@ program
   .option('--permission-file <path>', 'The path to the permission file', 'permissions.yaml')
   .option(
     '--enabled-mods <list>',
-    'A comma seperated list of enabled mods. If not set all mods will be loaded.',
-    (value) => value.split(',')
+    'A comma seperated list of enabled mods. If not set all mods will be loaded. Also specific versions of a mod can be specified by using "mod-name@version".',
+    (value) =>
+      value.split(',').reduce((acc, cur) => {
+        const [name, version] = cur.split('@');
+        return {
+          ...acc,
+          [name]: version,
+        };
+      }, {})
   )
   .option('--out-dir <path>', 'The output directory path for the generated files.', 'out')
 
@@ -33,17 +40,19 @@ program
       manifestPath: options.manifestPath,
       modModuleExtension: options.modModuleExtension,
     });
-
-    const mods = modLoader.loadMods();
     const enabledMods: Mod[] = [];
+    const mods = modLoader.loadMods();
     console.log(chalk.bold(chalk.italic('Installed Mods:')));
-    mods.forEach((mod) => {
-      const enabled = options.enabledMods?.includes(mod.manifest.name) ?? true;
+    for (const mod of mods) {
+      const enabled = ModLoader.isModEnabled(options.enabledMods || {}, mod.manifest);
+      if (enabled) {
+        enabledMods.push(mod);
+      }
+
       console.log(
         `${mod.manifest.name}: ${mod.manifest.version} (${enabled ? chalk.green('enabled') : chalk.red('disabled')})`
       );
-      if (enabled) enabledMods.push(mod);
-    });
+    }
 
     console.log('\n');
     console.log(chalk.bold(chalk.italic('Evaluating Mods...')));
