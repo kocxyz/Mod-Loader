@@ -39,13 +39,59 @@ export class ModLoader {
   }
 
   /**
-   * Load the mods inside the mod folder.
-   *
+   * Load the mods inside the mods folder.
+
    * @returns The loaded mods
    */
   loadMods(): Mod[] {
-    const modPaths = fs.readdirSync(this.options.modDir);
-    return modPaths.map((mod) => this.loadMod(path.join(this.options.modDir, mod)));
+    return this.loadModPaths().map((mod) => this.loadMod(path.join(this.options.modDir, mod)));
+  }
+
+  /**
+   * Load the mod manifests inside the mods folder
+   *
+   * **Note**: Useful to determine which mods should be enabled.
+   *
+   * @returns The loaded manifests
+   */
+  loadModManifests(): ModManifest[] {
+    return this.loadModPaths().map((mod) => this.loadModManifest(path.join(this.options.modDir, mod)));
+  }
+
+  /**
+   * Retrive all the mod paths.
+   *
+   * @returns The mod paths
+   */
+  private loadModPaths(): string[] {
+    return fs.readdirSync(this.options.modDir);
+  }
+
+  /**
+   * Load a mod from a specified location.
+   *
+   * @param modPath The path to the directory the mod is located at.
+   *
+   * @returns The loaded mod.
+   */
+  private loadMod(modPath: string): Mod {
+    const manifest = this.loadModManifest(modPath);
+    const entrypointModule = this.loadModModule(modPath, manifest.entrypoint);
+
+    return {
+      path: modPath,
+      manifest: manifest,
+      entrypoint: entrypointModule,
+      modules: {
+        [manifest.entrypoint]: entrypointModule,
+        ...this.loadModModules(modPath).reduce((acc, module) => {
+          return {
+            [module.specifier]: module,
+            ...acc,
+          };
+        }, {}),
+      },
+    };
   }
 
   /**
@@ -81,33 +127,6 @@ export class ModLoader {
     }
 
     return parseResult.data;
-  }
-
-  /**
-   * Load a mod from a specified location.
-   *
-   * @param modPath The path to the directory the mod is located at.
-   *
-   * @returns The loaded mod.
-   */
-  private loadMod(modPath: string): Mod {
-    const manifest = this.loadModManifest(modPath);
-    const entrypointModule = this.loadModModule(modPath, manifest.entrypoint);
-
-    return {
-      path: modPath,
-      manifest: manifest,
-      entrypoint: entrypointModule,
-      modules: {
-        [manifest.entrypoint]: entrypointModule,
-        ...this.loadModModules(modPath).reduce((acc, module) => {
-          return {
-            [module.specifier]: module,
-            ...acc,
-          };
-        }, {}),
-      },
-    };
   }
 
   /**
