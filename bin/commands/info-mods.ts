@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-import 'module-alias/register';
-
 import { ModLoader } from '@/index';
 import commander from 'commander';
 import chalk from 'chalk';

@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-import 'module-alias/register';
-
 import { Command } from 'commander';
 import figlet from 'figlet';
 import chalk from 'chalk';

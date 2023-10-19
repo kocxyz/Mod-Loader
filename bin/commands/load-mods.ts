@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-import 'module-alias/register';
-
 import { type Mod, ModLoader, ModEvaluator, OutGenerator } from '@/index';
 import commander from 'commander';
 import chalk from 'chalk';

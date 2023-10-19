@@ -2,6 +2,8 @@
   "name": "knockoutcity-mod-loader",
   "version": "1.0.0-alpha.13",
   "description": "A Mod Loader for Knockout City",
+  "author": "Tandashi",
+  "license": "ISC",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
@@ -18,21 +20,19 @@
   },
   "scripts": {
     "prisma:generate": "prisma generate",
-    "build": "tsc && cp -r templates dist/"
+    "build": "tsc && tsc-alias && cp -r templates dist/"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@types/figlet": "^1.5.6",
     "@types/js-yaml": "^4.0.6",
     "@types/lodash": "^4.14.199",
     "@types/module-alias": "^2.0.2",
     "@types/node": "^20.7.1",
+    "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0"
   },
   "dependencies": {
     "@prisma/client": "5.4.2",
-    "prisma": "5.4.2",
     "chalk": "^4.1.2",
     "commander": "^11.1.0",
     "figlet": "^1.6.0",
@@ -41,6 +41,7 @@
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "module-alias": "^2.2.3",
+    "prisma": "5.4.2",
     "template-file": "^6.0.1",
     "typescript": "^5.2.2",
     "winston": "^3.10.0",
