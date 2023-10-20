@@ -1,5 +1,6 @@
-import type { Mod, ModModule } from '@/types/mod';
+import type { Mod, ModModule, Accessory, PackageListEntry } from '@/types';
 import type { PermissionsService } from '@/sandbox/services';
+import type { Collector } from '@/generation/collector';
 import type ivm from 'isolated-vm';
 
 /**
@@ -26,5 +27,14 @@ export type SandboxAPIModule = {
    * @param mod The mod that will be evaluated in the sandbox.
    * @param permissionsService A permission service instance for the mod.
    */
-  initializeSandboxAPI(sandbox: Sandbox, mod: Mod, permissionsService: PermissionsService): void;
+  initializeSandboxAPI(
+    sandbox: Sandbox,
+    mod: Mod,
+    result: EvaluationResult,
+    permissionsService: PermissionsService
+  ): void;
+};
+
+export type EvaluationResult = {
+  accessories: Collector<Accessory>;
 };

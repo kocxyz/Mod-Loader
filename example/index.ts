@@ -1,19 +1,20 @@
-import { ModLoader, ModEvaluator, OutGenerator } from 'knockoutcity-mod-loader';
+import { ModLoader, ModEvaluator, OutGenerator, type EvaluationResult } from 'knockoutcity-mod-loader';
 
 const main = async () => {
   const loader = new ModLoader();
   const mods = loader.loadMods();
 
+  const evaluationResults: EvaluationResult[] = [];
   for (const mod of mods) {
     const evaluator = new ModEvaluator(mod, {
       modsConfigDir: 'generated/configs',
       permissionsFilePath: 'generated/permissions.yaml',
     });
-    await evaluator.evaulate();
+    evaluationResults.push(await evaluator.evaulate());
   }
 
   const outGenerator = new OutGenerator({ baseDir: 'generated' });
-  await outGenerator.generate();
+  await outGenerator.generate(evaluationResults);
 };
 
 main();

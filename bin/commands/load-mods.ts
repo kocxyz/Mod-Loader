@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { type Mod, ModLoader, ModEvaluator, OutGenerator } from '@/index';
+import { type Mod, ModLoader, ModEvaluator, OutGenerator, EvaluationResult } from '@/index';
 import commander from 'commander';
 import chalk from 'chalk';
 
@@ -54,18 +54,19 @@ program
 
     console.log('\n');
     console.log(chalk.bold(chalk.italic('Evaluating Mods...')));
+    const evaluationResults: EvaluationResult[] = [];
     for (const mod of enabledMods) {
       const evaluator = new ModEvaluator(mod, {
         modsConfigDir: options.modConfigDir,
         permissionsFilePath: options.permissionFile,
       });
-      await evaluator.evaulate();
+      evaluationResults.push(await evaluator.evaulate());
     }
 
     console.log('\n');
     console.log(chalk.bold(chalk.italic('Generating Files...')));
     const outGenerator = new OutGenerator({ baseDir: options.outDir });
-    await outGenerator.generate();
+    await outGenerator.generate(evaluationResults);
   });
 
 program.parse(process.argv);

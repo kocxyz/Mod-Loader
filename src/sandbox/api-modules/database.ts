@@ -155,7 +155,7 @@ export default database;
     `,
   }),
 
-  initializeSandboxAPI(sandbox, _, permission) {
+  initializeSandboxAPI(sandbox, _, __, permission) {
     const database = new DatabaseService(permission);
     const databaseClient = database.createExtendedClient();
 

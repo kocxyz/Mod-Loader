@@ -15,7 +15,7 @@ export default permissions;
     `,
   }),
 
-  initializeSandboxAPI(sandbox, _, permissions) {
+  initializeSandboxAPI(sandbox, _, __, permissions) {
     sandbox.global.setSync('__host__api__permissions_has_permission', permissions.hasPermission);
   },
 });

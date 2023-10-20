@@ -1,5 +1,5 @@
-import { Collector } from '@/generation/collector';
+import type { Collector, GlobalCollectors } from '@/generation';
 
 export type VJsonGenerator<Type> = {
-  createFiles: (outDir: string, collector: Collector<Type>) => void | Promise<void>;
+  createFiles: (outDir: string, collector: Collector<Type>, globalCollectors: GlobalCollectors) => void | Promise<void>;
 };

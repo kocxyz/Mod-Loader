@@ -1,4 +1,3 @@
-import { accessoriesCollector } from '@/generation';
 import { GUID, generateGUID } from '@/guid-generator';
 import type { Accessory, AccessoryType, Rarity, SandboxAPIModule } from '@/types';
 import path from 'path';
@@ -18,7 +17,7 @@ export default accessories;
     `,
   }),
 
-  initializeSandboxAPI(sandbox, mod) {
+  initializeSandboxAPI(sandbox, mod, result) {
     sandbox.global.setSync(
       '__host__api__accessories_create',
       (
@@ -46,7 +45,7 @@ export default accessories;
           inInitialInventory: inInitialInventory,
         };
 
-        accessoriesCollector.collect(accessory);
+        result.accessories.collect(accessory);
         return accessory;
       }
     );

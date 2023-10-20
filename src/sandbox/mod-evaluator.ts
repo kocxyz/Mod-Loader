@@ -1,4 +1,4 @@
-import type { Sandbox, SandboxAPIModule, Mod, ModModule } from '@/types';
+import type { Sandbox, SandboxAPIModule, Mod, ModModule, EvaluationResult } from '@/types';
 import ivm from 'isolated-vm';
 import path from 'path';
 import fs from 'fs';
@@ -12,6 +12,7 @@ import {
 import { PermissionsService } from '@/sandbox/services';
 import { AccessoriesAPIModule } from './api-modules/accessories';
 import { prisma } from '@/prisma';
+import { Collector } from '@/generation';
 
 type ModEvaluatorOptions = {
   /**
@@ -55,7 +56,7 @@ export class ModEvaluator {
     this.sandbox = this.createSandbox();
   }
 
-  async evaulate() {
+  async evaulate(): Promise<EvaluationResult> {
     if (this.mod.manifest.type === 'server-only') {
       await prisma.$connect();
     }
@@ -64,11 +65,14 @@ export class ModEvaluator {
     fs.mkdirSync(path.dirname(this.options.permissionsFilePath), { recursive: true });
 
     this.permissionService.loadPermissions();
+    const result: EvaluationResult = {
+      accessories: new Collector(),
+    };
 
     const sandboxAPIModules: { [specifier: string]: ModModule } = {
       ...this.apiModules.reduce((acc, sandboxModule) => {
         const module = sandboxModule.createModule();
-        sandboxModule.initializeSandboxAPI(this.sandbox, this.mod, this.permissionService);
+        sandboxModule.initializeSandboxAPI(this.sandbox, this.mod, result, this.permissionService);
 
         return {
           [module.specifier]: module,
@@ -79,9 +83,12 @@ export class ModEvaluator {
 
     const modEntrypointModule = this.sandbox.isolate.compileModuleSync(this.mod.entrypoint.source);
     this.instantiateModule(this.mod.manifest.entrypoint, modEntrypointModule, sandboxAPIModules);
-    return modEntrypointModule.evaluate({ promise: true }).finally(async () => {
-      await prisma.$disconnect();
-    });
+    return modEntrypointModule
+      .evaluate({ promise: true })
+      .then(() => result)
+      .finally(async () => {
+        await prisma.$disconnect();
+      });
   }
 
   private instantiateModule(

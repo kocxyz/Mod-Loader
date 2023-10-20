@@ -2,19 +2,10 @@ import type { Accessory, PackageListEntry } from '@/types';
 import path from 'path';
 import fs from 'fs';
 import { generateGUID, NIL_GUID } from '@/guid-generator';
-import {
-  Collector,
-  VJsonGenerator,
-  economyPackageListEntryCollector,
-  ImportPackageListVJsonTemplate,
-  packagesCollector,
-  AccessoryVJsonTemplate,
-  packageListsCollector,
-  catalogManagerPackageListEntryCollector,
-} from '@/generation';
+import { Collector, VJsonGenerator, ImportPackageListVJsonTemplate, AccessoryVJsonTemplate } from '@/generation';
 
 export const AccessoryVJsonGenerator: VJsonGenerator<Accessory> = {
-  createFiles: async (outDir, collector) => {
+  createFiles: async (outDir, collector, globalCollectors) => {
     for (const accessory of collector.getElements()) {
       const sanitizedAccessoryFilePathName = accessory.name.toLocaleLowerCase().replaceAll(' ', '_');
       const accessoryFileName = `${sanitizedAccessoryFilePathName}.accessory`;
@@ -37,8 +28,14 @@ export const AccessoryVJsonGenerator: VJsonGenerator<Accessory> = {
       fs.writeFileSync(accessoryPath, fileContent);
 
       // Create Economy Reference
-      economyPackageListEntryCollector.collect({ guid: accessory.guid, viperFSPath: accessoryViperFSPath });
-      catalogManagerPackageListEntryCollector.collect({ guid: accessory.guid, viperFSPath: accessoryViperFSPath });
+      globalCollectors.economy.collect({
+        guid: accessory.guid,
+        viperFSPath: accessoryViperFSPath,
+      });
+      globalCollectors.catalogManager.collect({
+        guid: accessory.guid,
+        viperFSPath: accessoryViperFSPath,
+      });
 
       // .import
       const iconImportName = `${sanitizedAccessoryFilePathName}.${accessory.icon.import.extension}.import`;
@@ -50,16 +47,16 @@ export const AccessoryVJsonGenerator: VJsonGenerator<Accessory> = {
       const iconImportPackageFileName = `${iconImportName}.package`;
       const iconImportPackagePath = path.join(accessoryDir, iconImportPackageFileName);
       const iconImportPackageViperFSPath = path.join(accessoryDirViperFSPath, iconImportPackageFileName);
-      packagesCollector.collect({
+      globalCollectors.packages.collect({
         guid: accessory.icon.packageGUID,
         path: iconImportPackagePath,
         viperFSPath: iconImportPackageViperFSPath,
       });
-      economyPackageListEntryCollector.collect({
+      globalCollectors.economy.collect({
         guid: accessory.icon.packageGUID,
         viperFSPath: iconImportPackageViperFSPath,
       });
-      catalogManagerPackageListEntryCollector.collect({
+      globalCollectors.catalogManager.collect({
         guid: accessory.icon.packageGUID,
         viperFSPath: iconImportPackageViperFSPath,
       });
@@ -67,7 +64,7 @@ export const AccessoryVJsonGenerator: VJsonGenerator<Accessory> = {
       // .import.package_list
       const iconImportPackageListFileName = `${iconImportName}.package_list`;
       const iconImportPackageListPath = path.join(accessoryDir, iconImportPackageListFileName);
-      packageListsCollector.collect({
+      globalCollectors.packageLists.collect({
         guid: generateGUID(),
         path: iconImportPackageListPath,
         viperFSPath: path.join(accessoryDirViperFSPath, iconImportPackageListFileName),
