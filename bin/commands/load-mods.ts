@@ -10,6 +10,15 @@ import {
 import commander from "commander";
 import chalk from "chalk";
 
+const transformModList = (value: string) =>
+  value.split(",").reduce((acc, cur) => {
+    const [name, version] = cur.split("@");
+    return {
+      ...acc,
+      [name]: version,
+    };
+  }, {});
+
 const program = new commander.Command();
 
 program.name("knockoutcity-mod-loader-load-mods");
@@ -43,15 +52,8 @@ program
   .option(
     "--enabled-mods <list>",
     'A comma seperated list of enabled mods. If not set all mods will be loaded. Also specific versions of a mod can be specified by using "mod-name@version".',
-    (value) =>
-      value.split(",").reduce((acc, cur) => {
-        const [name, version] = cur.split("@");
-        return {
-          ...acc,
-          [name]: version,
-        };
-      }, {}),
-    process.env.KCML_ENABLED_MODS
+    (value) => transformModList(value),
+    transformModList(process.env.KCML_ENABLED_MODS ?? "")
   )
   .option(
     "--out-dir <path>",
